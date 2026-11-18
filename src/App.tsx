@@ -1,6 +1,7 @@
 
 import { Route, Routes } from 'react-router-dom';
 import PublicLayout from './layouts/PublicLayout';
+import HomePage from './pages/HomePage';
 import PlaceholderPage from './pages/PlaceholderPage';
 
 function NotFound() {
@@ -18,7 +19,7 @@ export default function App() {
   return (
     <Routes>
       <Route element={<PublicLayout />}>
-        <Route path="/" element={<PlaceholderPage title="Home" />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<PlaceholderPage title="About" />} />
         <Route path="/skills" element={<PlaceholderPage title="Skills" />} />
         <Route path="/experience" element={<PlaceholderPage title="Experience" />} />

@@ -1,66 +1,703 @@
+/* ==========================================================================
+   VENKAT GANESH PORTFOLIO — VISUAL DESIGN SYSTEM FOUNDATION
+   Identity: Premium, Creative, Futuristic & Editorial Digital Architecture
+   ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap');
-
+/* --------------------------------------------------------------------------
+   01. DESIGN TOKENS & SYSTEM VARIABLES
+   -------------------------------------------------------------------------- */
 :root {
-  font-family: 'Inter', sans-serif;
+  /* Primitive Brand Palette (Fixed Master Values) */
+  --color-forest-emerald: #102E29;
+  --color-midnight-navy: #17243A;
+  --color-warm-ivory: #F5F1E8;
+  --color-soft-sage: #B9CDBB;
+  --color-champagne-gold: #C7A66A;
+  --color-muted-lavender: #8C83B8;
 
-  --color-forest: #102E29;
-  --color-navy: #17243A;
-  --color-ivory: #F5F1E8;
-  --color-sage: #B9CDBB;
-  --color-gold: #C7A66A;
-  --color-lavender: #8C83B8;
+  /* Typography Stacks */
+  --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-  --font-heading: 'Space Grotesk', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  /* Type Scale */
+  --font-size-2xs: 0.6875rem; /* 11px */
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-md: 1.125rem;   /* 18px */
+  --font-size-lg: 1.25rem;    /* 20px */
+  --font-size-xl: 1.5rem;     /* 24px */
+  --font-size-2xl: 1.875rem;  /* 30px */
+  --font-size-3xl: 2.25rem;   /* 36px */
+  --font-size-4xl: 3rem;      /* 48px */
+  --font-size-display: clamp(2.5rem, 5vw + 1rem, 4.25rem);
 
-  color: var(--color-forest);
-  background: var(--color-ivory);
+  /* Line Heights */
+  --line-height-tight: 1.15;
+  --line-height-snug: 1.35;
+  --line-height-normal: 1.55;
+  --line-height-relaxed: 1.7;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Letter Spacing */
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.04em;
+  --tracking-wider: 0.08em;
+  --tracking-mono: 0.1em;
+
+  /* Spacing Scale (4px-based Architectural Grid) */
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.25rem;  /* 20px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-8: 2rem;     /* 32px */
+  --space-10: 2.5rem;  /* 40px */
+  --space-12: 3rem;    /* 48px */
+  --space-16: 4rem;    /* 64px */
+  --space-20: 5rem;    /* 80px */
+  --space-24: 6rem;    /* 96px */
+  --space-32: 8rem;    /* 128px */
+
+  /* Architectural Radii — Strictly NO pill buttons! */
+  --radius-sharp: 0px;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+
+  /* Layout Containers */
+  --container-narrow: 840px;
+  --container-default: 1180px;
+  --container-wide: 1360px;
+  --header-height: 74px;
+
+  /* Transitions & Animation Easing */
+  --ease-architectural: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 140ms var(--ease-architectural);
+  --transition-base: 240ms var(--ease-architectural);
+  --transition-smooth: 380ms var(--ease-architectural);
+
+  /* Accessible Focus Ring */
+  --focus-ring-color: var(--color-champagne-gold);
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 3px;
+
+  /* Z-Index Hierarchy */
+  --z-negative: -1;
+  --z-base: 1;
+  --z-nav: 100;
+  --z-modal: 500;
+  --z-skip-link: 999;
 }
 
-* {
+/* --------------------------------------------------------------------------
+   02. THEME COLOR ASSIGNMENTS (LIGHT & DARK)
+   -------------------------------------------------------------------------- */
+
+/* Light Theme (Default / Warm Ivory Canvas) */
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* Canvas & Surfaces */
+  --bg-canvas: #F5F1E8;             /* Warm Ivory */
+  --bg-canvas-subtle: #ECE6D8;      /* Warm Ivory tinted tone */
+  --bg-surface: #FFFFFF;            /* Pure Crisp Architectural Surface */
+  --bg-surface-elevated: #FAF8F2;   /* Elevated Architectural Plate */
+  --bg-surface-sunken: #E5DFD1;     /* Recessed Area */
+  --bg-header: rgba(245, 241, 232, 0.92);
+  --bg-footer: #17243A;             /* Midnight Navy anchor */
+
+  /* Text & Content */
+  --text-primary: #102E29;          /* Forest Emerald */
+  --text-secondary: #17243A;        /* Midnight Navy */
+  --text-muted: #435A50;            /* Forest-tinted slate */
+  --text-dim: #6F8479;              /* Subdued technical notes */
+  --text-inverse: #F5F1E8;          /* Warm Ivory on dark elements */
+
+  /* Architectural Grid & Borders */
+  --border-subtle: rgba(16, 46, 41, 0.12);
+  --border-medium: rgba(16, 46, 41, 0.24);
+  --border-strong: rgba(16, 46, 41, 0.50);
+  --border-gold: rgba(199, 166, 106, 0.55);
+  --grid-line-color: rgba(16, 46, 41, 0.05);
+
+  /* Brand Accents */
+  --accent-gold: #C7A66A;           /* Champagne Gold */
+  --accent-gold-text: #8A6B29;      /* Accessible high-contrast gold for text */
+  --accent-gold-subtle: rgba(199, 166, 106, 0.15);
+  --accent-sage: #B9CDBB;           /* Soft Sage */
+  --accent-sage-subtle: rgba(185, 205, 187, 0.28);
+  --accent-lavender: #8C83B8;       /* Muted Lavender */
+  --accent-lavender-subtle: rgba(140, 131, 184, 0.16);
+  --accent-navy: #17243A;           /* Midnight Navy */
+  --accent-emerald: #102E29;        /* Forest Emerald */
+
+  /* Shadows (Clean architectural depth, no muddy glows) */
+  --shadow-sm: 0 1px 3px rgba(16, 46, 41, 0.06);
+  --shadow-md: 0 4px 14px rgba(16, 46, 41, 0.07);
+  --shadow-lg: 0 12px 32px rgba(16, 46, 41, 0.09);
+}
+
+/* Dark Theme (Midnight Navy & Forest Emerald Depth) */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Canvas & Surfaces */
+  --bg-canvas: #0D1624;             /* Deep Midnight Chamber */
+  --bg-canvas-subtle: #121E30;      /* Midnight Navy Subtle */
+  --bg-surface: #17243A;            /* Midnight Navy */
+  --bg-surface-elevated: #1F304B;   /* Elevated Midnight Plate */
+  --bg-surface-sunken: #102E29;     /* Forest Emerald deep recessed area */
+  --bg-header: rgba(13, 22, 36, 0.90);
+  --bg-footer: #0A111C;
+
+  /* Text & Content */
+  --text-primary: #F5F1E8;          /* Warm Ivory */
+  --text-secondary: #B9CDBB;        /* Soft Sage */
+  --text-muted: #8E9F94;            /* Sage-tinted muted */
+  --text-dim: #63776B;              /* Dimmed mono elements */
+  --text-inverse: #102E29;          /* Forest Emerald on light elements */
+
+  /* Architectural Grid & Borders */
+  --border-subtle: rgba(185, 205, 187, 0.15);
+  --border-medium: rgba(185, 205, 187, 0.28);
+  --border-strong: rgba(199, 166, 106, 0.45);
+  --border-gold: rgba(199, 166, 106, 0.50);
+  --grid-line-color: rgba(185, 205, 187, 0.06);
+
+  /* Brand Accents */
+  --accent-gold: #C7A66A;           /* Champagne Gold */
+  --accent-gold-text: #D8BA80;      /* Luminous gold for dark mode */
+  --accent-gold-subtle: rgba(199, 166, 106, 0.20);
+  --accent-sage: #B9CDBB;           /* Soft Sage */
+  --accent-sage-subtle: rgba(185, 205, 187, 0.16);
+  --accent-lavender: #8C83B8;       /* Muted Lavender */
+  --accent-lavender-subtle: rgba(140, 131, 184, 0.22);
+  --accent-navy: #17243A;           /* Midnight Navy */
+  --accent-emerald: #102E29;        /* Forest Emerald */
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 14px 40px rgba(0, 0, 0, 0.65);
+}
+
+/* --------------------------------------------------------------------------
+   03. BASE RESET & ACCESSIBLE FOUNDATION
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 html {
+  font-size: 16px;
   scroll-behavior: smooth;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   min-width: 320px;
   min-height: 100vh;
   font-family: var(--font-body);
-  background: var(--color-ivory);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--text-primary);
+  background-color: var(--bg-canvas);
+  background-image: 
+    linear-gradient(to right, var(--grid-line-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line-color) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: top center;
+  transition: background-color var(--transition-base), color var(--transition-base);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-button,
-input,
-textarea {
-  font: inherit;
+/* Accessible Focus States */
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
 }
 
-button {
-  cursor: pointer;
-}
-
-a {
-  color: inherit;
+/* Skip to Main Content Link for Keyboard Users */
+.skip-link {
+  position: absolute;
+  top: -9999px;
+  left: var(--space-4);
+  z-index: var(--z-skip-link);
+  padding: var(--space-2) var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--text-inverse);
+  background: var(--color-forest-emerald);
+  border: 1px solid var(--color-champagne-gold);
+  border-radius: var(--radius-xs);
   text-decoration: none;
+  box-shadow: var(--shadow-md);
+  transition: top var(--transition-fast);
 }
 
-img {
-  display: block;
-  max-width: 100%;
+.skip-link:focus {
+  top: var(--space-4);
 }
 
+/* Selection Color (Editorial & High Precision) */
+::selection {
+  background-color: var(--color-champagne-gold);
+  color: var(--color-midnight-navy);
+}
+
+/* --------------------------------------------------------------------------
+   04. TYPOGRAPHY SYSTEM
+   Headings: Space Grotesk
+   Body: Inter
+   Technical Labels: JetBrains Mono
+   -------------------------------------------------------------------------- */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
+  color: var(--text-primary);
+  font-weight: 600;
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--tracking-tight);
+}
+
+h1 {
+  font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+}
+
+h2 {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+}
+
+h3 {
+  font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+}
+
+h4 {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+}
+
+h5 {
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+}
+
+h6 {
+  font-size: var(--font-size-md);
+  font-weight: 500;
+}
+
+p {
+  color: var(--text-muted);
+  line-height: var(--line-height-relaxed);
+}
+
+strong, b {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+code, kbd, samp, pre {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+/* Technical Label Utility (Inspired by AI, CV & CAD blueprints) */
+.technical-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--accent-gold-text);
+}
+
+.technical-label::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background-color: var(--color-champagne-gold);
+  border-radius: var(--radius-sharp);
+}
+
+/* --------------------------------------------------------------------------
+   05. CONTAINER & LAYOUT UTILITIES
+   -------------------------------------------------------------------------- */
+.container {
+  width: min(var(--container-default), calc(100% - 2.5rem));
+  margin-inline: auto;
+}
+
+.container-narrow {
+  width: min(var(--container-narrow), calc(100% - 2.5rem));
+  margin-inline: auto;
+}
+
+.container-wide {
+  width: min(var(--container-wide), calc(100% - 3rem));
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: var(--space-20);
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding-block: var(--space-12);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   06. BUTTON PRIMITIVES (Strictly NO pill shapes, crisp geometric precision)
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0.75rem 1.4rem;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  line-height: 1;
+  text-decoration: none;
+  border-radius: var(--radius-xs); /* Sharp, architectural 2px radius */
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Button Variants */
+
+/* 1. Primary Button */
+.btn-primary {
+  background-color: var(--color-forest-emerald);
+  color: var(--color-warm-ivory);
+  border-color: var(--color-forest-emerald);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .btn-primary {
+  background-color: var(--color-champagne-gold);
+  color: var(--color-midnight-navy);
+  border-color: var(--color-champagne-gold);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--color-midnight-navy);
+  border-color: var(--color-champagne-gold);
+  color: var(--color-warm-ivory);
+}
+
+[data-theme="dark"] .btn-primary:hover:not(:disabled) {
+  background-color: var(--color-warm-ivory);
+  border-color: var(--color-warm-ivory);
+  color: var(--color-midnight-navy);
+}
+
+/* 2. Secondary / Outline Button */
+.btn-secondary,
+.btn-outline {
+  background-color: transparent;
+  color: var(--text-primary);
+  border-color: var(--border-medium);
+}
+
+.btn-secondary:hover:not(:disabled),
+.btn-outline:hover:not(:disabled) {
+  background-color: var(--bg-surface-elevated);
+  border-color: var(--color-champagne-gold);
+  color: var(--accent-gold-text);
+}
+
+/* 3. Ghost Button */
+.btn-ghost {
+  background-color: transparent;
+  color: var(--text-secondary);
+  border-color: transparent;
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background-color: var(--accent-sage-subtle);
+  color: var(--text-primary);
+}
+
+/* 4. Technical Monospace Action Button */
+.btn-mono {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border-color: var(--border-subtle);
+  padding: 0.6rem 1.1rem;
+}
+
+.btn-mono:hover:not(:disabled) {
+  background-color: var(--bg-surface-elevated);
+  border-color: var(--color-champagne-gold);
+  color: var(--accent-gold-text);
+}
+
+/* Button Sizes */
+.btn-sm {
+  padding: 0.5rem 0.9rem;
+  font-size: var(--font-size-xs);
+}
+
+.btn-lg {
+  padding: 0.95rem 1.85rem;
+  font-size: var(--font-size-base);
+}
+
+/* --------------------------------------------------------------------------
+   07. EDITORIAL & TECHNICAL LINK STYLES
+   -------------------------------------------------------------------------- */
+.editorial-link {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  display: inline-block;
+  transition: color var(--transition-fast);
+}
+
+.editorial-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-champagne-gold);
+  transform: scaleX(0.4);
+  transform-origin: left;
+  transition: transform var(--transition-fast), background-color var(--transition-fast);
+}
+
+.editorial-link:hover {
+  color: var(--accent-gold-text);
+}
+
+.editorial-link:hover::after {
+  transform: scaleX(1);
+}
+
+.tech-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--accent-gold-text);
+  text-decoration: none;
+  transition: gap var(--transition-fast), color var(--transition-fast);
+}
+
+.tech-link .arrow {
+  display: inline-block;
+  transition: transform var(--transition-fast);
+}
+
+.tech-link:hover {
+  color: var(--text-primary);
+}
+
+.tech-link:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* --------------------------------------------------------------------------
+   08. ARCHITECTURAL PANELS & CARDS (CAD & Computer Vision Framing)
+   -------------------------------------------------------------------------- */
+.panel-architectural {
+  position: relative;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xs);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-base);
+}
+
+/* CAD Crosshair Corner Accents */
+.panel-architectural::before,
+.panel-architectural::after {
+  content: "+";
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+  color: var(--accent-gold);
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.panel-architectural::before {
+  top: -6px;
+  left: -5px;
+}
+
+.panel-architectural::after {
+  bottom: -6px;
+  right: -5px;
+}
+
+.panel-architectural:hover {
+  border-color: var(--border-gold);
+  box-shadow: var(--shadow-md);
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--space-4);
+  margin-bottom: var(--space-6);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.panel-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   09. TECHNICAL BADGES & STATUS INDICATORS
+   -------------------------------------------------------------------------- */
+.tech-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.3rem 0.65rem;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-2xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  border-radius: var(--radius-xs);
+  line-height: 1.2;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface-elevated);
+  color: var(--text-primary);
+}
+
+.tech-badge-emerald {
+  background: rgba(16, 46, 41, 0.12);
+  border-color: rgba(16, 46, 41, 0.3);
+  color: var(--color-forest-emerald);
+}
+
+[data-theme="dark"] .tech-badge-emerald {
+  background: rgba(16, 46, 41, 0.45);
+  border-color: rgba(185, 205, 187, 0.3);
+  color: var(--color-soft-sage);
+}
+
+.tech-badge-gold {
+  background: var(--accent-gold-subtle);
+  border-color: var(--border-gold);
+  color: var(--accent-gold-text);
+}
+
+.tech-badge-sage {
+  background: var(--accent-sage-subtle);
+  border-color: rgba(185, 205, 187, 0.45);
+  color: var(--color-forest-emerald);
+}
+
+[data-theme="dark"] .tech-badge-sage {
+  color: var(--color-soft-sage);
+}
+
+.tech-badge-lavender {
+  background: var(--accent-lavender-subtle);
+  border-color: rgba(140, 131, 184, 0.4);
+  color: var(--color-muted-lavender);
+}
+
+[data-theme="dark"] .tech-badge-lavender {
+  color: #B5ADDE;
+}
+
+/* Status Indicator Dot */
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-sharp);
+  background-color: var(--color-champagne-gold);
+  box-shadow: 0 0 6px var(--color-champagne-gold);
+}
+
+.status-dot-emerald {
+  background-color: var(--color-forest-emerald);
+  box-shadow: 0 0 6px rgba(16, 46, 41, 0.4);
+}
+
+[data-theme="dark"] .status-dot-emerald {
+  background-color: var(--color-soft-sage);
+  box-shadow: 0 0 6px var(--color-soft-sage);
+}
+
+/* --------------------------------------------------------------------------
+   10. REDUCED-MOTION ACCESSIBILITY
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
