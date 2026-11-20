@@ -1,3 +1,4 @@
+import analyticsRoutes from "./routes/analyticsRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import publicSettingsRoutes from "./routes/publicSettingsRoutes.js";
 import settingsRoutes from "./routes/settingsRoutes.js";
@@ -52,4 +53,6 @@ app.use("/api/admin", authRoutes);
 app.use("/api/admin/settings", settingsRoutes);
 app.use("/api/public", publicSettingsRoutes);
 app.use("/api/admin/uploads", uploadRoutes);
+app.use("/api/analytics", analyticsRoutes);
+app.use("/api/admin/analytics", analyticsRoutes);
 export default app;

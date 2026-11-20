@@ -117,3 +117,23 @@ model MediaAsset {
   mimeType  String?
   createdAt DateTime @default(now())
 }
+
+
+model AnalyticsEvent {
+  id           String   @id @default(cuid())
+  visitorId    String
+  sessionId    String?
+  eventType    String
+  pagePath     String
+  target       String?
+  source       String?
+  deviceType   String?
+  createdAt    DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([eventType, createdAt])
+  @@index([pagePath, createdAt])
+  @@index([visitorId, createdAt])
+  @@index([target, createdAt])
+}
+

@@ -1,9 +1,35 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { homepageContent } from '../data/homepageContent';
+import type { HomePageContent } from '../types/homepage';
 import ProfileImage from '../components/ProfileImage';
 
 export default function HomePage() {
-  const { hero, projects, about, skills, experience, contact } = homepageContent;
+  const [content, setContent] = useState<HomePageContent>(homepageContent);
+
+  useEffect(() => {
+    async function loadHomepage() {
+      try {
+        const response = await fetch(
+          'http://localhost:5000/api/public/homepage'
+        );
+
+        if (!response.ok) return;
+
+        const data = await response.json();
+
+        if (data.content) {
+          setContent(data.content as HomePageContent);
+        }
+      } catch (error) {
+        console.error('Could not load homepage content:', error);
+      }
+    }
+
+    loadHomepage();
+  }, []);
+
+  const { hero, projects, about, skills, experience, contact } = content;
 
   return (
     <div className="home-page">
