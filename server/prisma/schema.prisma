@@ -37,20 +37,22 @@ model SiteSettings {
 }
 
 model Project {
-  id          String   @id @default(cuid())
-  title       String
-  slug        String   @unique
-  summary     String
-  description String   @default("")
-  coverImage  String?
-  githubUrl   String?
-  liveUrl     String?
-  techStack   String[]
-  featured    Boolean  @default(false)
-  published   Boolean  @default(false)
-  sortOrder   Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id            String   @id @default(cuid())
+  title         String
+  slug          String   @unique
+  summary       String
+  description   String   @default("")
+  category      String?
+  coverImage    String?
+  galleryImages String[] @default([])
+  githubUrl     String?
+  liveUrl       String?
+  techStack     String[]
+  featured      Boolean  @default(false)
+  published     Boolean  @default(false)
+  sortOrder     Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   @@index([published, sortOrder])
 }
@@ -135,5 +137,37 @@ model AnalyticsEvent {
   @@index([pagePath, createdAt])
   @@index([visitorId, createdAt])
   @@index([target, createdAt])
+}
+model Hobby {
+  id            String   @id @default(cuid())
+  title         String
+  slug          String   @unique
+  summary       String
+  description   String   @default("")
+  category      String?
+  coverImage    String?
+  galleryImages String[] @default([])
+  published     Boolean  @default(false)
+  sortOrder     Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([published, sortOrder])
+}
+
+model AboutContent {
+  id            String   @id @default(cuid())
+  key            String   @unique @default("main")
+  pageTitle      String   @default("About Me")
+  headline       String   @default("")
+  intro          String   @default("")
+  whoIAm         String   @default("")
+  whatIExplore   String   @default("")
+  beyondTech     String   @default("")
+  myDirection    String   @default("")
+  profileImage   String?
+  published      Boolean  @default(false)
+  updatedAt      DateTime @updatedAt
+  createdAt      DateTime @default(now())
 }
 

@@ -1,3 +1,7 @@
+
+import { aboutPublicRoutes, aboutAdminRoutes } from "./routes/aboutRoutes.js";
+import { hobbyPublicRoutes, hobbyAdminRoutes } from "./routes/hobbyRoutes.js";
+import { projectPublicRoutes, projectAdminRoutes } from "./routes/projectRoutes.js";
 import analyticsRoutes from "./routes/analyticsRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import publicSettingsRoutes from "./routes/publicSettingsRoutes.js";
@@ -49,7 +53,13 @@ app.get("/api/health", async (_req, res) => {
     });
   }
 });
+app.use("/api/about", aboutPublicRoutes);
+app.use("/api/admin/about", aboutAdminRoutes);
+app.use("/api/hobbies", hobbyPublicRoutes);
+app.use("/api/admin/hobbies", hobbyAdminRoutes);
 app.use("/api/admin", authRoutes);
+app.use("/api/projects", projectPublicRoutes);
+app.use("/api/admin/projects", projectAdminRoutes);
 app.use("/api/admin/settings", settingsRoutes);
 app.use("/api/public", publicSettingsRoutes);
 app.use("/api/admin/uploads", uploadRoutes);

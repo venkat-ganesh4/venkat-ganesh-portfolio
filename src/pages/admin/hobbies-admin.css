@@ -1,0 +1,249 @@
+.hobbies-admin-page {
+  min-height: 100vh;
+  padding: 48px 5%;
+  background: var(--bg-primary, #f5f1e8);
+  color: var(--text-primary, #102e29);
+}
+
+.hobbies-admin-header,
+.hobbies-admin-actions,
+.hobby-editor-footer,
+.hobby-admin-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.hobbies-admin-header {
+  margin-bottom: 32px;
+}
+
+.hobbies-admin-header h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin: 10px 0;
+}
+
+.hobbies-admin-header p,
+.hobby-image-section p {
+  opacity: 0.7;
+}
+
+.hobby-admin-eyebrow {
+  font-family: monospace;
+  color: #c7a66a;
+  letter-spacing: 0.16em;
+  font-size: 0.75rem;
+}
+
+.hobby-admin-button {
+  padding: 12px 20px;
+  border: 1px solid #102e29;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
+.hobby-admin-button.primary {
+  background: #102e29;
+  color: #f5f1e8;
+}
+
+.hobby-admin-button.secondary {
+  background: transparent;
+}
+
+.hobby-admin-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.hobby-admin-message {
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  border: 1px solid #c7a66a;
+}
+
+.hobby-editor {
+  border: 1px solid rgba(16, 46, 41, 0.2);
+  padding: clamp(18px, 4vw, 32px);
+  margin-bottom: 50px;
+}
+
+.hobby-editor-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 28px;
+}
+
+.hobby-editor-heading span {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #c7a66a;
+}
+
+.hobby-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+
+.hobby-form-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.hobby-form-grid .full-width {
+  grid-column: 1 / -1;
+}
+
+.hobby-form-grid input,
+.hobby-form-grid textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px;
+  border: 1px solid rgba(16, 46, 41, 0.25);
+  background: transparent;
+  color: inherit;
+  border-radius: 0;
+  font: inherit;
+}
+
+.hobby-form-grid textarea {
+  resize: vertical;
+}
+
+.hobby-image-section {
+  border-top: 1px solid rgba(16, 46, 41, 0.15);
+  margin-top: 30px;
+  padding-top: 22px;
+}
+
+.hobby-image-section h3 {
+  margin-bottom: 16px;
+}
+
+.remove-image,
+.hobby-gallery-item button {
+  margin-top: 10px;
+  padding: 8px 12px;
+  border: 1px solid rgba(16, 46, 41, 0.3);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.hobby-gallery-preview {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.hobby-gallery-item img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+}
+
+.hobby-editor-footer {
+  border-top: 1px solid rgba(16, 46, 41, 0.15);
+  margin-top: 30px;
+  padding-top: 20px;
+}
+
+.hobby-publish-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hobbies-admin-list h2 {
+  margin-bottom: 20px;
+}
+
+.hobbies-empty-state {
+  border: 1px dashed rgba(16, 46, 41, 0.3);
+  padding: 30px;
+  text-align: center;
+}
+
+.hobbies-admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.hobby-admin-card {
+  border: 1px solid rgba(16, 46, 41, 0.18);
+  overflow: hidden;
+}
+
+.hobby-admin-card > img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+}
+
+.hobby-admin-card-content {
+  padding: 18px;
+}
+
+.hobby-admin-card-status {
+  font-size: 0.7rem;
+  color: #c7a66a;
+  letter-spacing: 0.1em;
+}
+
+.hobby-admin-card-content h3 {
+  margin: 10px 0;
+}
+
+.hobby-admin-card-content p {
+  opacity: 0.75;
+  line-height: 1.6;
+}
+
+.hobby-admin-card-actions button {
+  padding: 9px 14px;
+  border: 1px solid rgba(16, 46, 41, 0.3);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.hobby-admin-card-actions .danger {
+  border-color: #a33b3b;
+  color: #a33b3b;
+}
+
+@media (max-width: 650px) {
+  .hobbies-admin-page {
+    padding: 25px 16px;
+  }
+
+  .hobby-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hobby-form-grid .full-width {
+    grid-column: auto;
+  }
+
+  .hobby-editor-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
