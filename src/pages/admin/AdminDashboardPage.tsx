@@ -54,6 +54,9 @@ export default function AdminDashboardPage() {
   <div>
   <Link to="/admin/hobbies">Manage Hobbies</Link>
 </div>
+<div>
+  <Link to="/admin/skills">Manage Skills</Link>
+</div>
 </div>
 <a href="/admin/about">Manage About Page</a>
 <div>

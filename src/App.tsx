@@ -1,4 +1,6 @@
 
+import SkillsPage from "./pages/SkillsPage";
+import SkillsAdminPage from "./pages/admin/SkillsAdminPage";
 import AboutPage from './pages/AboutPage';
 import AboutAdminPage from './pages/admin/AboutAdminPage';
 import HobbiesAdminPage from './pages/admin/HobbiesAdminPage';
@@ -93,6 +95,7 @@ export default function App() {
   return (
     <Routes>
       {/* Admin */}
+      <Route path="/admin/skills" element={<SkillsAdminPage />} />
       <Route path="/admin/about" element={<AboutAdminPage />} />
       <Route path="/admin/projects" element={<ProjectsAdminPage />} />
       <Route path="/admin/hobbies" element={<HobbiesAdminPage />} />
@@ -105,7 +108,7 @@ export default function App() {
       <Route element={<PublicLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
-        <Route path="/skills" element={<PlaceholderPage title="Skills" />} />
+        <Route path="/skills" element={<SkillsPage />} />
         <Route path="/experience" element={<PlaceholderPage title="Experience" />} />
 
         <Route path="/projects" element={<ProjectsPage />} />
