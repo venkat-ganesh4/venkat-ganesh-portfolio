@@ -74,20 +74,27 @@ model Skill {
   @@index([categoryId])
 }
 
+
 model Experience {
-  id          String   @id @default(cuid())
-  role        String
-  company     String
-  location    String?
-  startDate   DateTime
-  endDate     DateTime?
-  current     Boolean  @default(false)
-  description String
-  published   Boolean  @default(false)
-  sortOrder   Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id               String   @id @default(cuid())
+  role              String
+  company            String
+  location           String?
+  employmentType     String?
+  startDate         DateTime
+  endDate           DateTime?
+  current           Boolean  @default(false)
+  description        String   @default("")
+  responsibilities   String[] @default([])
+  technologies       String[] @default([])
+  published          Boolean  @default(false)
+  sortOrder         Int      @default(0)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([published, sortOrder])
 }
+
 
 model BlogPost {
   id          String   @id @default(cuid())
@@ -170,4 +177,17 @@ model AboutContent {
   updatedAt      DateTime @updatedAt
   createdAt      DateTime @default(now())
 }
+
+model VisitorThought {
+  id        String   @id @default(cuid())
+  name      String
+  email     String?
+  content   String
+  published Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([published, createdAt])
+}
+
 

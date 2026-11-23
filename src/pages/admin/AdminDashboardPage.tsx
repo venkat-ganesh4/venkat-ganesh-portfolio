@@ -62,6 +62,9 @@ export default function AdminDashboardPage() {
 <div>
   <Link to="/admin/analytics">View Analytics</Link>
 </div>
+<div>
+  <Link to="/admin/experience">Manage Experience</Link>
+</div>
         </div>
       </section>
 

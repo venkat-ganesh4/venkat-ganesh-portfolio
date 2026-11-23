@@ -1,4 +1,8 @@
 
+import {
+  experiencePublicRoutes,
+  experienceAdminRoutes,
+} from "./routes/experienceRoutes.js";
 import { skillPublicRoutes, skillAdminRoutes } from "./routes/skillRoutes.js";
 import { aboutPublicRoutes, aboutAdminRoutes } from "./routes/aboutRoutes.js";
 import { hobbyPublicRoutes, hobbyAdminRoutes } from "./routes/hobbyRoutes.js";
@@ -54,6 +58,8 @@ app.get("/api/health", async (_req, res) => {
     });
   }
 });
+app.use("/api/experience", experiencePublicRoutes);
+app.use("/api/admin/experience", experienceAdminRoutes);
 app.use("/api/skills", skillPublicRoutes);
 app.use("/api/admin/skills", skillAdminRoutes);
 app.use("/api/about", aboutPublicRoutes);

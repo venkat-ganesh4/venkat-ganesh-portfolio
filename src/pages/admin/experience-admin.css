@@ -1,0 +1,370 @@
+
+.experience-admin-page {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 48px 0 80px;
+  color: #17243A;
+}
+
+.experience-admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.experience-admin-eyebrow {
+  color: #8C83B8;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.experience-admin-header h1 {
+  margin: 10px 0;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(32px, 5vw, 46px);
+  color: #102E29;
+}
+
+.experience-admin-header p {
+  color: #68736D;
+  line-height: 1.6;
+}
+
+.experience-admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.experience-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 42px;
+  padding: 10px 18px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.experience-button.primary {
+  background: #102E29;
+  color: #F5F1E8;
+}
+
+.experience-button.primary:hover {
+  background: #24483F;
+}
+
+.experience-button.secondary {
+  background: transparent;
+  color: #102E29;
+  border-color: #B9CDBB;
+}
+
+.experience-button.secondary:hover {
+  background: #E8EDE6;
+}
+
+.experience-message {
+  padding: 14px 18px;
+  margin-bottom: 22px;
+  border: 1px solid #B9CDBB;
+  background: #F5F1E8;
+  line-height: 1.5;
+}
+
+.experience-message.error {
+  border-color: #B65C50;
+  color: #9D342A;
+}
+
+.experience-message.success {
+  color: #102E29;
+}
+
+.experience-editor {
+  padding: 28px;
+  border: 1px solid #D9DED6;
+  background: #FFFFFF;
+  box-shadow: 0 8px 30px rgba(23, 36, 58, 0.04);
+}
+
+.experience-editor-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #E5E8E2;
+}
+
+.experience-editor-heading h2,
+.experience-admin-list h2 {
+  margin: 0;
+  color: #102E29;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 23px;
+}
+
+.experience-editor-heading span {
+  padding: 6px 12px;
+  background: #F5F1E8;
+  color: #76623F;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.experience-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.experience-form-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #263D35;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.experience-form-grid .full-width {
+  grid-column: 1 / -1;
+}
+
+.experience-form-grid input,
+.experience-form-grid select,
+.experience-form-grid textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 13px;
+  border: 1px solid #D5DDD5;
+  border-radius: 4px;
+  background: #FAFBF8;
+  color: #17243A;
+  font: inherit;
+  font-size: 14px;
+}
+
+.experience-form-grid input:focus,
+.experience-form-grid select:focus,
+.experience-form-grid textarea:focus {
+  outline: 2px solid #B9CDBB;
+  border-color: #102E29;
+}
+
+.experience-form-grid input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.experience-form-grid textarea {
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.experience-form-grid small {
+  color: #78847D;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.experience-editor-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-top: 24px;
+  margin-top: 26px;
+  border-top: 1px solid #E5E8E2;
+}
+
+.experience-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.experience-checkboxes label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #263D35;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.experience-checkboxes input {
+  accent-color: #102E29;
+  width: 16px;
+  height: 16px;
+}
+
+.experience-admin-list {
+  margin-top: 48px;
+}
+
+.experience-admin-list h2 {
+  margin-bottom: 22px;
+}
+
+.experience-empty-state {
+  padding: 38px 24px;
+  border: 1px dashed #B9CDBB;
+  text-align: center;
+  background: #F5F1E8;
+}
+
+.experience-empty-state h3 {
+  color: #102E29;
+}
+
+.experience-empty-state p {
+  color: #68736D;
+  line-height: 1.6;
+}
+
+.experience-admin-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.experience-admin-card {
+  border: 1px solid #D9DED6;
+  background: #FFFFFF;
+}
+
+.experience-card-content {
+  padding: 22px;
+}
+
+.experience-card-status {
+  color: #8C83B8;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.experience-card-content h3 {
+  margin: 12px 0 5px;
+  color: #102E29;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 21px;
+}
+
+.experience-card-content h4 {
+  margin: 0;
+  color: #76623F;
+  font-size: 15px;
+}
+
+.experience-card-content p {
+  color: #68736D;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.experience-type {
+  display: inline-block;
+  padding: 5px 9px;
+  border: 1px solid #B9CDBB;
+  color: #24483F;
+  font-size: 11px;
+}
+
+.experience-card-description {
+  margin-top: 14px;
+}
+
+.experience-card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.experience-card-actions button {
+  padding: 8px 16px;
+  border: 1px solid #B9CDBB;
+  background: transparent;
+  color: #102E29;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.experience-card-actions button:hover {
+  background: #E8EDE6;
+}
+
+.experience-card-actions button.danger {
+  border-color: #D9AAA4;
+  color: #9D342A;
+}
+
+.experience-card-actions button.danger:hover {
+  background: #F9EDEA;
+}
+
+@media (max-width: 760px) {
+  .experience-admin-header {
+    flex-direction: column;
+  }
+
+  .experience-admin-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .experience-admin-page {
+    padding-top: 30px;
+  }
+}
+
+@media (max-width: 560px) {
+  .experience-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .experience-form-grid .full-width {
+    grid-column: auto;
+  }
+
+  .experience-editor {
+    padding: 18px;
+  }
+
+  .experience-editor-footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .experience-editor-footer .experience-admin-actions {
+    width: 100%;
+  }
+
+  .experience-editor-footer .experience-button {
+    flex: 1;
+  }
+
+  .experience-admin-actions {
+    width: 100%;
+  }
+
+  .experience-admin-actions .experience-button {
+    flex: 1;
+  }
+}
