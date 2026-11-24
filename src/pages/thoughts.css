@@ -1,0 +1,198 @@
+.thoughts-page {
+  min-height: 75vh;
+  padding: 80px 0 110px;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+}
+
+.thoughts-hero,
+.thoughts-content {
+  width: min(1120px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+.thoughts-hero {
+  max-width: 820px;
+  margin-bottom: 72px;
+}
+
+.thoughts-hero h1 {
+  margin: 18px 0;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1.08;
+}
+
+.thoughts-hero > p,
+.thoughts-section-heading > p,
+.thoughts-form-section > p {
+  max-width: 620px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.thoughts-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(300px, 0.8fr);
+  gap: 64px;
+  align-items: start;
+}
+
+.thoughts-section-heading {
+  margin-bottom: 28px;
+}
+
+.thoughts-section-heading h2,
+.thoughts-form-section h2 {
+  margin: 12px 0;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+}
+
+.thoughts-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.thought-card,
+.thoughts-empty,
+.thoughts-form-section {
+  padding: 26px;
+  border: 1px solid var(--border-color);
+  background: var(--surface-color);
+  border-radius: 4px;
+}
+
+.thought-card-content {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.8;
+  color: var(--text-primary);
+}
+
+.thought-card-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+}
+
+.thought-card-footer strong {
+  color: var(--accent-color);
+}
+
+.thought-card-footer time,
+.thoughts-form-meta,
+.thoughts-form label span {
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+}
+
+.thoughts-empty p,
+.thoughts-status {
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.thoughts-form {
+  display: grid;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.thoughts-form label {
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.thoughts-form input,
+.thoughts-form textarea {
+  width: 100%;
+  padding: 13px 14px;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  font: inherit;
+}
+
+.thoughts-form textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+.thoughts-form input:focus,
+.thoughts-form textarea:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+.thoughts-form-meta {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.thoughts-form button {
+  margin-top: 12px;
+  padding: 14px 20px;
+  border: 1px solid var(--accent-color);
+  border-radius: 3px;
+  color: var(--button-text);
+  background: var(--accent-color);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 180ms ease;
+}
+
+.thoughts-form button:hover {
+  opacity: 0.85;
+}
+
+.thoughts-form button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.thoughts-success {
+  color: var(--accent-color);
+  line-height: 1.6;
+}
+
+.thoughts-error {
+  color: #c45b50;
+  line-height: 1.6;
+}
+
+@media (max-width: 760px) {
+  .thoughts-page {
+    padding: 55px 0 75px;
+  }
+
+  .thoughts-content {
+    grid-template-columns: 1fr;
+    gap: 42px;
+  }
+
+  .thoughts-hero {
+    margin-bottom: 48px;
+  }
+}
+
+@media (max-width: 420px) {
+  .thought-card,
+  .thoughts-empty,
+  .thoughts-form-section {
+    padding: 19px;
+  }
+
+  .thought-card-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

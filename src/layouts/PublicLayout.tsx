@@ -3,6 +3,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 import ThemeToggle from '../components/ThemeToggle';
 
 const navItems = [
+  { label: "Resume", path: "/resume" },
   { label: 'Home', path: '/' },
   { label: 'About', path: '/about' },
   { label: 'Skills', path: '/skills' },

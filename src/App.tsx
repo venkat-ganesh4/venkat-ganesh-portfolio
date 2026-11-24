@@ -1,4 +1,9 @@
 
+import ResumePage from "./pages/ResumePage";
+import ResumeAdminPage from "./pages/admin/ResumeAdminPage";
+import MyThoughtsAdminPage from "./pages/admin/MyThoughtsAdminPage";
+import VisitorThoughtsAdminPage from "./pages/admin/VisitorThoughtsAdminPage";
+import ThoughtsPage from "./pages/ThoughtsPage";
 import ExperiencePage from "./pages/ExperiencePage";
 import ExperienceAdminPage from "./pages/admin/ExperienceAdminPage";
 import SkillsPage from "./pages/SkillsPage";
@@ -96,6 +101,15 @@ export default function App() {
 
   return (
     <Routes>
+      <Route path="/admin/resume" element={<ResumeAdminPage />} />
+      <Route
+  path="/admin/my-thoughts"
+  element={<MyThoughtsAdminPage />}
+/>
+      <Route
+  path="/admin/visitor-thoughts"
+  element={<VisitorThoughtsAdminPage />}
+/>
       {/* Admin */}
       <Route
   path="/admin/experience"
@@ -111,8 +125,10 @@ export default function App() {
       <Route path="/admin/homepage" element={<HomepageEditorPage />} />
 
       {/* Public Website */}
-      <Route element={<PublicLayout />}>
-        <Route path="/" element={<HomePage />} />
+      {/* Public Website */}
+<Route element={<PublicLayout />}>
+  <Route path="/resume" element={<ResumePage />} />
+  <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/skills" element={<SkillsPage />} />
         <Route path="/experience" element={<ExperiencePage />} />
@@ -126,7 +142,7 @@ export default function App() {
         {/* Redirect old Blog URL */}
         <Route path="/blog" element={<Navigate to="/hobbies" replace />} />
 
-        <Route path="/thoughts" element={<PlaceholderPage title="Thoughts" />} />
+        <Route path="/thoughts" element={<ThoughtsPage />} />
         <Route path="/contact" element={<PlaceholderPage title="Contact" />} />
         <Route path="*" element={<NotFound />} />
       </Route>

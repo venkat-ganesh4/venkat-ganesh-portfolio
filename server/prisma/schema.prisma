@@ -191,3 +191,28 @@ model VisitorThought {
 }
 
 
+model ResumeContent {
+  id                String   @id @default(cuid())
+  key               String   @unique @default("main")
+
+  pageTitle         String   @default("My Resume")
+  headline          String   @default("Get to know my journey")
+  intro             String   @default("Explore my professional background and experience.")
+
+  // PDF resume
+  pdfUrl            String?
+  pdfPublicId       String?
+  pdfFilename       String?
+
+  // Video resume
+  videoUrl          String?
+  videoPublicId     String?
+  videoFilename     String?
+  videoThumbnail    String?
+
+  // Public page visibility
+  published         Boolean  @default(false)
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
