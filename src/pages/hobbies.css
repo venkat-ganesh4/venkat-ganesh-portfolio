@@ -321,3 +321,172 @@
     flex-direction: column;
   }
 }
+
+
+/* Hobbies page refinements */
+
+.hobbies-page,
+.hobby-detail-page {
+  padding-top: 60px;
+  padding-bottom: 80px;
+}
+
+.hobbies-intro {
+  margin-bottom: 42px;
+}
+
+.hobbies-kicker {
+  margin-bottom: 16px;
+}
+
+.hobbies-intro h1,
+.hobby-detail-header h1 {
+  font-size: clamp(3rem, 7vw, 6rem);
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+.hobbies-intro > p,
+.hobby-detail-header > p {
+  line-height: 1.7;
+}
+
+/* Hobby cards */
+
+.hobbies-grid {
+  column-gap: 26px;
+  row-gap: 42px;
+}
+
+.hobby-card-offset {
+  margin-top: 55px;
+}
+
+.hobby-card-image {
+  aspect-ratio: 1.4 / 1;
+  border: 1px solid var(--border-gold);
+  background: var(--bg-surface);
+}
+
+.hobby-card-image img {
+  transition: transform 0.5s ease;
+}
+
+.hobby-card:hover .hobby-card-image img {
+  transform: scale(1.045);
+}
+
+.hobby-card-arrow {
+  right: 14px;
+  top: 14px;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--border-gold);
+}
+
+.hobby-card-content {
+  padding: 18px 2px 0;
+}
+
+.hobby-card-content h2 {
+  margin: 8px 0;
+  line-height: 1.2;
+}
+
+.hobby-card-content > p {
+  line-height: 1.65;
+  max-width: 520px;
+}
+
+.hobby-explore {
+  margin-top: 10px;
+}
+
+/* Detail page */
+
+.hobby-back-link {
+  margin-bottom: 35px;
+  transition: color 0.2s ease;
+}
+
+.hobby-back-link:hover,
+.hobby-detail-end a:hover {
+  color: var(--accent-gold-text);
+}
+
+.hobby-detail-header {
+  margin-bottom: 30px;
+}
+
+.hobby-detail-cover {
+  border: 1px solid var(--border-gold);
+}
+
+.hobby-detail-description {
+  padding: 35px 0;
+}
+
+.hobby-detail-description p {
+  line-height: 1.85;
+}
+
+.hobby-detail-gallery {
+  margin-top: 20px;
+}
+
+.hobby-detail-gallery h2 {
+  font-size: 2.2rem;
+}
+
+.hobby-gallery-grid {
+  gap: 16px;
+}
+
+.hobby-gallery-grid img {
+  border: 1px solid var(--border-gold);
+}
+
+.hobby-detail-end {
+  margin-top: 55px;
+  padding: 24px 0;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+  .hobbies-page,
+  .hobby-detail-page {
+    padding: 45px 20px 60px;
+  }
+
+  .hobbies-grid {
+    row-gap: 35px;
+  }
+
+  .hobby-card-offset {
+    margin-top: 0;
+  }
+
+  .hobby-card-image {
+    aspect-ratio: 1.35 / 1;
+  }
+
+  .hobby-detail-description {
+    padding: 28px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .hobbies-intro h1,
+  .hobby-detail-header h1 {
+    font-size: clamp(2.8rem, 13vw, 4rem);
+  }
+
+  .hobby-card-content h2 {
+    font-size: 1.8rem;
+  }
+
+  .hobby-detail-gallery h2 {
+    font-size: 1.9rem;
+  }
+}

@@ -1,4 +1,6 @@
 
+import ContactPage from "./pages/ContactPage";
+import ContactAdminPage from "./pages/admin/ContactAdminPage";
 import ResumePage from "./pages/ResumePage";
 import ResumeAdminPage from "./pages/admin/ResumeAdminPage";
 import MyThoughtsAdminPage from "./pages/admin/MyThoughtsAdminPage";
@@ -101,6 +103,11 @@ export default function App() {
 
   return (
     <Routes>
+      
+      <Route
+  path="/admin/contact"
+  element={<ContactAdminPage />}
+/>
       <Route path="/admin/resume" element={<ResumeAdminPage />} />
       <Route
   path="/admin/my-thoughts"
@@ -143,7 +150,7 @@ export default function App() {
         <Route path="/blog" element={<Navigate to="/hobbies" replace />} />
 
         <Route path="/thoughts" element={<ThoughtsPage />} />
-        <Route path="/contact" element={<PlaceholderPage title="Contact" />} />
+        <Route path="/contact" element={<ContactPage />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

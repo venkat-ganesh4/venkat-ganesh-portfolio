@@ -1,5 +1,9 @@
 
 import {
+  contactPublicRoutes,
+  contactAdminRoutes,
+} from "./routes/contactRoutes.js";
+import {
   resumePublicRoutes,
   resumeAdminRoutes,
 } from "./routes/resumeRoutes.js";
@@ -71,6 +75,8 @@ import resumeUploadRoutes from "./routes/resumeUploadRoutes.js";
       });
     }
   });
+  app.use("/api/contact", contactPublicRoutes);
+  app.use("/api/admin/contact", contactAdminRoutes);
   app.use("/api/resume", resumePublicRoutes);
   app.use("/api/admin/resume", resumeAdminRoutes);
   app.use("/api/admin/uploads", uploadRoutes);

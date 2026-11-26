@@ -1,0 +1,264 @@
+
+.contact-page {
+  min-height: 65vh;
+  padding: clamp(55px, 8vw, 100px) 0;
+  background: transparent;
+  color: var(--color-text);
+}
+
+.contact-container {
+  width: min(1050px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.contact-heading {
+  max-width: 720px;
+  margin-bottom: 65px;
+}
+
+.contact-eyebrow {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #a17c3e;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.contact-heading h1 {
+  margin: 0 0 16px;
+  color: inherit;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(42px, 7vw, 72px);
+  font-weight: 600;
+  letter-spacing: -2.5px;
+  line-height: 1.08;
+}
+
+.contact-heading h2 {
+  margin: 0 0 18px;
+  color: inherit;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(21px, 3vw, 29px);
+  font-weight: 500;
+}
+
+.contact-heading > p {
+  max-width: 620px;
+  margin: 0;
+  color: var(--color-muted, #777d75);
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.contact-note {
+  display: inline-block;
+  margin: 20px 16px 0 0;
+  color: #a17c3e;
+  font-size: 13px;
+}
+
+.contact-group {
+  margin-top: 48px;
+}
+
+.contact-group h3 {
+  margin: 0 0 20px;
+  color: inherit;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.contact-card {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 18px;
+  padding: 22px;
+  border: 1px solid rgba(16, 46, 41, 0.14);
+  background: rgba(255, 253, 248, 0.62);
+  color: #102e29;
+  text-decoration: none;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-3px);
+  border-color: #c7a66a;
+  background: #fffdf8;
+}
+
+.contact-card-icon {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  place-items: center;
+  border: 1px solid rgba(16, 46, 41, 0.12);
+  background: #f5f1e8;
+  color: #102e29;
+}
+
+.contact-card-icon svg {
+  width: 23px;
+  height: 23px;
+}
+
+.contact-card-copy {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contact-card-label {
+  color: #777d75;
+  font-size: 12px;
+}
+
+.contact-card-copy strong {
+  overflow-wrap: anywhere;
+  color: #102e29;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.contact-card-arrow {
+  color: #a17c3e;
+  font-size: 21px;
+}
+
+.contact-empty,
+.contact-loading {
+  color: var(--color-muted, #777d75);
+  line-height: 1.7;
+}
+
+@media (max-width: 650px) {
+  .contact-container {
+    width: calc(100% - 36px);
+  }
+
+  .contact-heading {
+    margin-bottom: 45px;
+  }
+
+  .contact-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-card {
+    padding: 18px;
+  }
+}
+
+/* Theme-aware contact cards */
+.contact-card {
+  background: var(--color-surface, transparent);
+  color: var(--color-text);
+  border-color: var(--color-border, rgba(128, 128, 128, 0.2));
+}
+
+.contact-card:hover {
+  background: var(--color-surface-hover, var(--color-surface, transparent));
+  border-color: var(--color-accent, #c7a66a);
+}
+
+.contact-card-icon {
+  background: var(--color-background);
+  color: var(--color-text);
+  border-color: var(--color-border, rgba(128, 128, 128, 0.2));
+}
+
+.contact-card-copy strong {
+  color: var(--color-text);
+}
+
+.contact-card-label,
+.contact-heading > p,
+.contact-empty,
+.contact-loading {
+  color: var(--color-muted);
+}
+
+.contact-eyebrow,
+.contact-card-arrow,
+.contact-note {
+  color: var(--color-accent, #c7a66a);
+}
+
+/* Clear, consistent borders around contact details */
+.contact-card {
+  border: 1px solid rgba(16, 46, 41, 0.22);
+  border-radius: 2px;
+}
+
+.contact-card-icon {
+  border: 1px solid rgba(16, 46, 41, 0.18);
+}
+
+/* Dark theme borders */
+[data-theme="dark"] .contact-card {
+  border-color: rgba(245, 241, 232, 0.24);
+}
+
+[data-theme="dark"] .contact-card-icon {
+  border-color: rgba(245, 241, 232, 0.18);
+}
+
+/* Keep the outline visible on hover */
+.contact-card:hover {
+  border-color: #c7a66a;
+}
+
+/* Match Contact cards with Thoughts cards */
+.contact-card {
+  padding: 24px;
+  border: 1px solid var(--border-gold);
+  border-radius: 3px;
+  background: var(--bg-surface);
+  color: var(--text-primary);
+
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-gold);
+  background: var(--bg-surface);
+  box-shadow: 0 10px 26px rgba(16, 46, 41, 0.09);
+}
+
+.contact-card-icon {
+  background: var(--bg-canvas);
+  border: 1px solid var(--border-medium);
+  color: var(--text-primary);
+}
+
+.contact-card-copy strong {
+  color: var(--text-primary);
+}
+
+.contact-card-label {
+  color: var(--text-secondary);
+}
+
+.contact-card-arrow {
+  color: var(--accent-gold-text);
+}

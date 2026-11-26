@@ -913,3 +913,21 @@
     transition: none;
   }
 }
+
+/* Match the Projects page card borders */
+.resume-page .resume-choice {
+  border: 1px solid var(--border-gold);
+}
+
+/* Slightly refined hover, without a heavy golden glow */
+.resume-page .resume-choice--available:hover,
+.resume-page .resume-choice--available:focus-visible {
+  border-color: var(--border-gold);
+  box-shadow: 0 15px 35px rgba(16, 46, 41, 0.1);
+}
+
+/* Keep the original border on both cards */
+.resume-page .resume-choice--pdf,
+.resume-page .resume-choice--video {
+  border: 1px solid var(--border-gold);
+}

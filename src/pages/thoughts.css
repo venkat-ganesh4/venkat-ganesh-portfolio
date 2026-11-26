@@ -196,3 +196,166 @@
     flex-direction: column;
   }
 }
+
+
+/* Thoughts page refinements */
+
+.thoughts-page {
+  padding: 60px 0 80px;
+}
+
+.thoughts-hero {
+  margin-bottom: 48px;
+}
+
+.thoughts-hero h1 {
+  font-size: clamp(2.8rem, 6vw, 4.4rem);
+  letter-spacing: -0.045em;
+  margin: 14px 0;
+}
+
+.thoughts-hero > p {
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.thoughts-content {
+  gap: 38px;
+}
+
+/* Section headings */
+
+.thoughts-section-heading {
+  margin-bottom: 22px;
+}
+
+.thoughts-section-heading h2,
+.thoughts-form-section h2 {
+  letter-spacing: -0.035em;
+}
+
+/* Thought cards */
+
+.thoughts-grid {
+  gap: 14px;
+}
+
+.thought-card,
+.thoughts-empty,
+.thoughts-form-section {
+  padding: 24px;
+  border: 1px solid var(--border-gold);
+  border-radius: 3px;
+  background: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+.thought-card {
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.thought-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 26px rgba(16, 46, 41, 0.09);
+}
+
+.thought-card-content {
+  font-size: 1rem;
+  line-height: 1.85;
+}
+
+.thought-card-footer {
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-gold);
+}
+
+.thought-card-footer strong {
+  color: var(--accent-gold-text);
+}
+
+/* Submission form */
+
+.thoughts-form-section {
+  position: sticky;
+  top: 100px;
+}
+
+.thoughts-form {
+  gap: 9px;
+  margin-top: 22px;
+}
+
+.thoughts-form label {
+  margin-top: 12px;
+  font-size: 0.9rem;
+}
+
+.thoughts-form input,
+.thoughts-form textarea {
+  padding: 13px 14px;
+  border: 1px solid var(--border-medium);
+  border-radius: 3px;
+  background: var(--bg-canvas);
+  color: var(--text-primary);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.thoughts-form input:focus,
+.thoughts-form textarea:focus {
+  outline: none;
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 3px rgba(199, 166, 106, 0.12);
+}
+
+.thoughts-form textarea {
+  min-height: 150px;
+}
+
+.thoughts-form button {
+  padding: 13px 18px;
+  border: 1px solid var(--border-gold);
+  border-radius: 3px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.thoughts-form button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.thoughts-success {
+  color: var(--accent-gold-text);
+}
+
+/* Responsive */
+
+@media (max-width: 760px) {
+  .thoughts-page {
+    padding: 45px 0 60px;
+  }
+
+  .thoughts-content {
+    gap: 30px;
+  }
+
+  .thoughts-form-section {
+    position: static;
+  }
+
+  .thoughts-hero {
+    margin-bottom: 35px;
+  }
+}
+
+@media (max-width: 420px) {
+  .thought-card,
+  .thoughts-empty,
+  .thoughts-form-section {
+    padding: 18px;
+  }
+
+  .thoughts-hero h1 {
+    font-size: 2.7rem;
+  }
+}

@@ -48,6 +48,7 @@ export default function AdminDashboardPage() {
       <section>
         <h2>Content Management</h2>
         <div>
+          <a href="/admin/contact">Contact Management</a>
           <p><Link to="/admin/my-thoughts">Manage My Thoughts</Link></p>
           <p><Link to="/admin/homepage">Edit Homepage</Link></p>
           <p><Link to="/admin/projects">Manage Projects</Link></p>
