@@ -1,58 +1,263 @@
+
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { homepageContent } from '../data/homepageContent';
 import type { HomePageContent } from '../types/homepage';
 import ProfileImage from '../components/ProfileImage';
+import './HomePage.css';
+
+const API = 'http://localhost:5000/api';
+
+type Project = {
+  id: string;
+  title: string;
+  slug: string;
+  category?: string;
+  summary?: string;
+  description?: string;
+  coverImage?: string;
+  techStack?: string[];
+  githubUrl?: string;
+  liveUrl?: string;
+  featured?: boolean;
+};
+
+type About = {
+  pageTitle?: string;
+  headline?: string;
+  intro?: string;
+  whoIAm?: string;
+  whatIExplore?: string;
+  beyondTech?: string;
+  myDirection?: string;
+};
+
+type SkillCategory = {
+  id: string;
+  name: string;
+  skills?: { id?: string; name: string }[];
+};
+
+type Experience = {
+  id: string;
+  role: string;
+  company: string;
+  location?: string;
+  startDate?: string;
+  endDate?: string | null;
+  current?: boolean;
+  description?: string;
+  technologies?: string[];
+  responsibilities?: string[];
+};
+
+type Thought = {
+  id: string;
+  title?: string;
+  content?: string;
+  body?: string;
+  excerpt?: string;
+  createdAt?: string;
+  category?: string;
+  slug?: string;
+};
+
+async function getJson(path: string) {
+  const response = await fetch(`${API}${path}`);
+
+  if (!response.ok) {
+    throw new Error(`Could not load ${path}`);
+  }
+
+  return response.json();
+}
+
+function SectionHeading({
+  label,
+  title,
+  description,
+  link,
+}: {
+  label: string;
+  title: string;
+  description?: string;
+  link: string;
+}) {
+  return (
+    <div className="section-header-row">
+      <div>
+        <div className="technical-label">{label}</div>
+        <h2 className="section-title">{title}</h2>
+        {description && (
+          <p className="section-description">{description}</p>
+        )}
+      </div>
+
+      <Link to={link} className="btn btn-outline section-header-action">
+        Explore More <span aria-hidden="true">→</span>
+      </Link>
+    </div>
+  );
+}
+
+function formatDate(value?: string | null) {
+  if (!value) return '';
+
+  const date = new Date(value);
+
+  return Number.isNaN(date.getTime())
+    ? value
+    : date.toLocaleDateString('en-US', {
+        month: 'short',
+        year: 'numeric',
+      });
+}
 
 export default function HomePage() {
-  const [content, setContent] = useState<HomePageContent>(homepageContent);
+  const [hero, setHero] = useState(homepageContent.hero);
 
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [about, setAbout] = useState<About | null>(null);
+  const [skills, setSkills] = useState<SkillCategory[]>([]);
+  const [experiences, setExperiences] = useState<Experience[]>([]);
+  const [thoughts, setThoughts] = useState<Thought[]>([]);
+
+  // Load the saved homepage hero settings from the admin CMS.
   useEffect(() => {
-    async function loadHomepage() {
+    let active = true;
+
+    async function loadSavedHomepage() {
       try {
-        const response = await fetch(
-          'http://localhost:5000/api/public/homepage'
-        );
+        const response = await fetch(`${API}/public/homepage`);
 
         if (!response.ok) return;
 
-        const data = await response.json();
+        const result = await response.json();
+        const savedContent =
+          result.content as Partial<HomePageContent> | null;
 
-        if (data.content) {
-          setContent(data.content as HomePageContent);
-        }
+        if (!active || !savedContent?.hero) return;
+
+        setHero({
+          ...homepageContent.hero,
+          ...savedContent.hero,
+          profileImage: {
+            ...homepageContent.hero.profileImage,
+            ...savedContent.hero.profileImage,
+          },
+        });
       } catch (error) {
-        console.error('Could not load homepage content:', error);
+        console.error(
+          'Could not load saved homepage settings:',
+          error,
+        );
       }
     }
 
-    loadHomepage();
+    loadSavedHomepage();
+
+    return () => {
+      active = false;
+    };
   }, []);
 
-  const { hero, projects, about, skills, experience, contact } = content;
+  // Load actual published content for homepage previews.
+  useEffect(() => {
+    let active = true;
+
+    async function loadSections() {
+      const results = await Promise.allSettled([
+        getJson('/projects'),
+        getJson('/about'),
+        getJson('/skills'),
+        getJson('/experience'),
+        getJson('/thoughts'),
+      ]);
+
+      if (!active) return;
+
+      const [
+        projectResult,
+        aboutResult,
+        skillResult,
+        experienceResult,
+        thoughtResult,
+      ] = results;
+
+      if (projectResult.status === 'fulfilled') {
+        const items: Project[] =
+          projectResult.value.projects ?? [];
+
+        setProjects(
+          items
+            .filter((item) => item.featured)
+            .slice(0, 4),
+        );
+      }
+
+      if (aboutResult.status === 'fulfilled') {
+        setAbout(aboutResult.value.about ?? null);
+      }
+
+      if (skillResult.status === 'fulfilled') {
+        setSkills(
+          (skillResult.value.categories ?? []).slice(0, 4),
+        );
+      }
+
+      if (experienceResult.status === 'fulfilled') {
+        setExperiences(
+          (experienceResult.value.experiences ?? []).slice(0, 4),
+        );
+      }
+
+      if (thoughtResult.status === 'fulfilled') {
+        const items =
+          thoughtResult.value.thoughts ??
+          thoughtResult.value.posts ??
+          [];
+
+        setThoughts(items.slice(0, 4));
+      }
+    }
+
+    loadSections().catch((error) => {
+      console.error('Could not load homepage sections:', error);
+    });
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   return (
     <div className="home-page">
-      {/* --------------------------------------------------------------------
-          01. HERO SECTION
-          -------------------------------------------------------------------- */}
+
+      {/* HERO */}
       <section className="section hero-section" id="hero">
         <div className="container">
           <div className="hero-layout">
-            {/* Left Column: Personal Introduction & Story */}
+
             <div className="hero-text-col">
               <div className="hero-badge-row">
                 <span className="personal-status-pill">
-                  <span className={`status-dot status-dot-${hero.statusBadge.dotColor}`}></span>
+                  <span
+                    className={`status-dot status-dot-${hero.statusBadge.dotColor}`}
+                  />
                   <span>{hero.statusBadge.text}</span>
                 </span>
-                <span className="tech-badge tech-badge-sage">{hero.roleBadge}</span>
+
+                <span className="tech-badge tech-badge-sage">
+                  {hero.roleBadge}
+                </span>
               </div>
 
               <div className="hero-headline-block">
                 <p className="hero-greeting">{hero.greeting}</p>
+
                 <h1 className="hero-name">
-                  {hero.name}<span className="hero-dot">.</span>
+                  {hero.name}
+                  <span className="hero-dot">.</span>
                 </h1>
               </div>
 
@@ -64,43 +269,68 @@ export default function HomePage() {
                 {hero.leadParagraph}
               </p>
 
-              {/* Action Buttons */}
               <div className="hero-cta-group">
-                {hero.ctaButtons.map((btn, idx) => (
-                  btn.url.startsWith('#') ? (
-                    <a
-                      key={idx}
-                      href={btn.url}
-                      className={`btn btn-${btn.variant || 'primary'}`}
-                    >
-                      {btn.label}
-                    </a>
-                  ) : (
+                {hero.ctaButtons.map((button, index) => {
+                  const destination =
+                    button.url === '#contact'
+                      ? '/contact'
+                      : button.url;
+
+                  if (destination.startsWith('http')) {
+                    return (
+                      <a
+                        key={index}
+                        href={destination}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`btn btn-${button.variant || 'primary'}`}
+                      >
+                        {button.label}
+                      </a>
+                    );
+                  }
+
+                  if (destination.startsWith('#')) {
+                    return (
+                      <a
+                        key={index}
+                        href={destination}
+                        className={`btn btn-${button.variant || 'primary'}`}
+                      >
+                        {button.label}
+                      </a>
+                    );
+                  }
+
+                  return (
                     <Link
-                      key={idx}
-                      to={btn.url}
-                      className={`btn btn-${btn.variant || 'primary'}`}
+                      key={index}
+                      to={destination}
+                      className={`btn btn-${button.variant || 'primary'}`}
                     >
-                      {btn.label}
+                      {button.label}
                     </Link>
-                  )
-                ))}
+                  );
+                })}
               </div>
 
-              {/* Personal Focus & Exploration Chips */}
-              <div className="hero-focus-block">
-                <span className="hero-focus-label">{hero.interestChipsLabel}</span>
-                <div className="hero-focus-tags">
-                  {hero.interestChips.map((chip, idx) => (
-                    <span key={idx} className="personal-chip">
-                      {chip}
-                    </span>
-                  ))}
+              {!!hero.interestChips.length && (
+                <div className="hero-focus-block">
+                  <span className="hero-focus-label">
+                    {hero.interestChipsLabel}
+                  </span>
+
+                  <div className="hero-focus-tags">
+                    {hero.interestChips.map((chip, index) => (
+                      <span key={index} className="personal-chip">
+                        {chip}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
-            {/* Right Column: Configurable Profile Image with Graceful Fallback */}
             <div className="hero-visual-col">
               <div className="portrait-composition">
                 <div className="portrait-frame panel-architectural">
@@ -111,310 +341,358 @@ export default function HomePage() {
 
                     <div className="portrait-caption">
                       <div className="portrait-caption-header">
-                        <span className="portrait-caption-name">{hero.name}</span>
-                        <span className="status-dot"></span>
+                        <span className="portrait-caption-name">
+                          {hero.name}
+                        </span>
+                        <span className="status-dot" />
                       </div>
-                      <p className="portrait-caption-tagline">{hero.identity}</p>
+
+                      <p className="portrait-caption-tagline">
+                        {hero.identity}
+                      </p>
                     </div>
                   </div>
                 </div>
 
-                {/* Subtle geometric backing layer for artistic depth */}
-                <div className="portrait-backing-layer" aria-hidden="true"></div>
+                <div
+                  className="portrait-backing-layer"
+                  aria-hidden="true"
+                />
               </div>
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* --------------------------------------------------------------------
-          02. SELECTED PROJECTS SECTION
-          -------------------------------------------------------------------- */}
-      <section className="section home-projects-section" id="projects">
-        <div className="container">
-          <div className="section-header-row">
-            <div>
-              <div className="technical-label">{projects.eyebrow}</div>
-              <h2 className="section-title">{projects.title}</h2>
-              <p className="section-description">{projects.description}</p>
-            </div>
-            <Link to={projects.viewAllLink.url} className="btn btn-outline section-header-action">
-              {projects.viewAllLink.label}
-            </Link>
-          </div>
+      {/* FEATURED PROJECTS */}
+      {projects.length > 0 && (
+        <section
+          className="section home-projects-section"
+          id="projects"
+        >
+          <div className="container">
+            <SectionHeading
+              label="Selected Work"
+              title="Featured Projects"
+              description="A selection of projects I've worked on."
+              link="/projects"
+            />
 
-          <div className="featured-projects-grid">
-            {projects.projects.map((project) => (
-              <article key={project.id} className="project-card panel-architectural">
-                <div className="project-card-header">
-                  <span className={`tech-badge tech-badge-${project.badgeTone}`}>
-                    {project.category}
-                  </span>
-                  <span className="project-year">{project.year}</span>
-                </div>
-
-                <h3 className="project-card-title">{project.title}</h3>
-                <p className="project-card-desc">{project.description}</p>
-
-                <div className="project-tech-stack">
-                  {project.tags.map((tag, idx) => (
-                    <span key={idx} className="personal-chip">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="project-card-footer">
-                  {project.links.details && (
-                    <Link to={project.links.details} className="tech-link">
-                      <span>View Project Details</span>
-                      <span className="arrow">→</span>
-                    </Link>
+            <div className="featured-projects-grid">
+              {projects.map((project) => (
+                <article
+                  key={project.id}
+                  className="project-card panel-architectural"
+                >
+                  {project.coverImage && (
+                    <img
+                      src={project.coverImage}
+                      alt={project.title}
+                      className="project-card-image"
+                      loading="lazy"
+                    />
                   )}
-                  {project.links.github && (
-                    <a
-                      href={project.links.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="editorial-link project-ext-link"
+
+                  {project.category && (
+                    <span className="tech-badge tech-badge-sage">
+                      {project.category}
+                    </span>
+                  )}
+
+                  <h3 className="project-card-title">
+                    {project.title}
+                  </h3>
+
+                  {(project.summary || project.description) && (
+                    <p className="project-card-desc">
+                      {project.summary || project.description}
+                    </p>
+                  )}
+
+                  {!!project.techStack?.length && (
+                    <div className="project-tech-stack">
+                      {project.techStack.map((tag) => (
+                        <span key={tag} className="personal-chip">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="project-card-footer">
+                    <Link
+                      to={`/projects/${project.slug}`}
+                      className="tech-link"
                     >
-                      Source Code ↗
-                    </a>
-                  )}
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+                      View Project <span className="arrow">→</span>
+                    </Link>
 
-      {/* --------------------------------------------------------------------
-          03. ABOUT PREVIEW SECTION
-          -------------------------------------------------------------------- */}
-      <section className="section home-about-section" id="about">
-        <div className="container">
-          <div className="about-preview-grid">
-            <div className="about-preview-text">
-              <div className="technical-label">{about.eyebrow}</div>
-              <h2 className="section-title">{about.title}</h2>
-              <p className="about-preview-lead">{about.lead}</p>
-
-              <div className="about-bio-stack">
-                {about.bioParagraphs.map((para, idx) => (
-                  <p key={idx} className="about-bio-p">
-                    {para}
-                  </p>
-                ))}
-              </div>
-
-              <div className="about-actions-row">
-                <Link to={about.readMoreLink.url} className="btn btn-primary">
-                  {about.readMoreLink.label}
-                </Link>
-                <a href="#contact" className="btn btn-secondary">
-                  Let's Connect
-                </a>
-              </div>
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="editorial-link"
+                      >
+                        GitHub ↗
+                      </a>
+                    )}
+                  </div>
+                </article>
+              ))}
             </div>
+          </div>
+        </section>
+      )}
 
-            <div className="about-principles-col">
-              <div className="panel-architectural principles-card">
-                <div className="panel-header">
-                  <span className="technical-label">// Core Principles</span>
-                  <span className="tech-badge tech-badge-gold">PHILOSOPHY</span>
+      {/* ABOUT */}
+      {about && (
+        <section
+          className="section home-about-section"
+          id="about"
+        >
+          <div className="container">
+            <div className="about-preview-grid">
+
+              <div className="about-preview-text">
+                <div className="technical-label">About</div>
+
+                <h2 className="section-title">
+                  {about.headline || about.pageTitle}
+                </h2>
+
+                {about.intro && (
+                  <p className="about-preview-lead">
+                    {about.intro}
+                  </p>
+                )}
+
+                <div className="about-bio-stack">
+                  {[about.whoIAm, about.whatIExplore, about.beyondTech, about.myDirection]
+                    .filter(Boolean)
+                    .slice(0, 3)
+                    .map((paragraph, index) => (
+                      <p key={index} className="about-bio-p">
+                        {paragraph}
+                      </p>
+                    ))}
                 </div>
 
-                <div className="principles-list">
-                  {about.principles.map((principle, idx) => (
-                    <div key={idx} className="principle-item">
-                      <div className="principle-number">0{idx + 1}</div>
-                      <div className="principle-body">
-                        <h4 className="principle-title">{principle.title}</h4>
-                        <p className="principle-desc">{principle.description}</p>
+                <div className="about-actions-row">
+                  <Link to="/about" className="btn btn-primary">
+                    Explore More
+                  </Link>
+                </div>
+              </div>
+
+              <div className="about-preview-side">
+                <div className="about-side-card">
+                  <span className="technical-label">
+                    A LITTLE MORE ABOUT ME
+                  </span>
+
+                  {about.whatIExplore && (
+                    <div className="about-side-item">
+                      <span className="about-side-number">01</span>
+                      <div>
+                        <h3>What I Explore</h3>
+                        <p>{about.whatIExplore}</p>
                       </div>
                     </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* --------------------------------------------------------------------
-          04. SKILLS PREVIEW SECTION
-          -------------------------------------------------------------------- */}
-      <section className="section home-skills-section" id="skills">
-        <div className="container">
-          <div className="section-header-row">
-            <div>
-              <div className="technical-label">{skills.eyebrow}</div>
-              <h2 className="section-title">{skills.title}</h2>
-              <p className="section-description">{skills.description}</p>
-            </div>
-            {skills.viewAllLink && (
-              <Link to={skills.viewAllLink.url} className="btn btn-outline section-header-action">
-                {skills.viewAllLink.label}
-              </Link>
-            )}
-          </div>
-
-          <div className="skills-categories-grid">
-            {skills.categories.map((category) => (
-              <div key={category.id} className="skill-cat-card panel-architectural">
-                <div className="skill-cat-header">
-                  <span className={`tech-badge tech-badge-${category.badgeTone}`}>
-                    {category.badgeLabel}
-                  </span>
-                </div>
-
-                <h3 className="skill-cat-title">{category.title}</h3>
-                <p className="skill-cat-desc">{category.description}</p>
-
-                <div className="skill-tags-cloud">
-                  {category.skills.map((skill, idx) => (
-                    <span key={idx} className="skill-item-pill">
-                      <span className="skill-item-name">{skill.name}</span>
-                      {skill.level && (
-                        <span className="skill-item-level">{skill.level}</span>
-                      )}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* --------------------------------------------------------------------
-          05. EXPERIENCE PREVIEW SECTION
-          -------------------------------------------------------------------- */}
-      <section className="section home-experience-section" id="experience">
-        <div className="container">
-          <div className="section-header-row">
-            <div>
-              <div className="technical-label">{experience.eyebrow}</div>
-              <h2 className="section-title">{experience.title}</h2>
-              <p className="section-description">{experience.description}</p>
-            </div>
-            {experience.viewAllLink && (
-              <Link to={experience.viewAllLink.url} className="btn btn-outline section-header-action">
-                {experience.viewAllLink.label}
-              </Link>
-            )}
-          </div>
-
-          <div className="experience-timeline">
-            {experience.timeline.map((item, idx) => (
-              <div key={item.id} className="timeline-item panel-architectural">
-                <div className="timeline-meta-col">
-                  <span className="timeline-period">{item.period}</span>
-                  {item.current && (
-                    <span className="tech-badge tech-badge-emerald timeline-current-badge">
-                      CURRENT
-                    </span>
                   )}
-                  {item.location && (
-                    <span className="timeline-location">{item.location}</span>
+
+                  {about.myDirection && (
+                    <div className="about-side-item">
+                      <span className="about-side-number">02</span>
+                      <div>
+                        <h3>My Direction</h3>
+                        <p>{about.myDirection}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {about.beyondTech && (
+                    <div className="about-side-item">
+                      <span className="about-side-number">03</span>
+                      <div>
+                        <h3>Beyond Technology</h3>
+                        <p>{about.beyondTech}</p>
+                      </div>
+                    </div>
                   )}
                 </div>
+              </div>
 
-                <div className="timeline-content-col">
-                  <div className="timeline-header">
-                    <h3 className="timeline-role">{item.role}</h3>
-                    <span className="timeline-org">{item.organization}</span>
-                  </div>
+            </div>
+          </div>
+        </section>
+      )}
 
-                  <p className="timeline-desc">{item.description}</p>
+      {/* SKILLS */}
+      {skills.length > 0 && (
+        <section
+          className="section home-skills-section"
+          id="skills"
+        >
+          <div className="container">
+            <SectionHeading
+              label="What I Work With"
+              title="Skills"
+              link="/skills"
+            />
 
-                  <div className="timeline-tech-stack">
-                    {item.technologies.map((tech, tIdx) => (
-                      <span key={tIdx} className="personal-chip">
-                        {tech}
+            <div className="skills-categories-grid">
+              {skills.map((category) => (
+                <div
+                  key={category.id}
+                  className="skill-cat-card panel-architectural"
+                >
+                  <h3 className="skill-cat-title">
+                    {category.name}
+                  </h3>
+
+                  <div className="skill-tags-cloud">
+                    {(category.skills ?? []).map((skill, index) => (
+                      <span
+                        key={skill.id ?? `${category.id}-${index}`}
+                        className="skill-item-pill"
+                      >
+                        <span className="skill-item-name">
+                          {skill.name}
+                        </span>
                       </span>
                     ))}
                   </div>
                 </div>
-
-                <div className="timeline-index" aria-hidden="true">
-                  0{idx + 1}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* --------------------------------------------------------------------
-          06. CONTACT SECTION
-          -------------------------------------------------------------------- */}
-      <section className="section home-contact-section" id="contact">
-        <div className="container">
-          <div className="contact-banner panel-architectural">
-            <div className="contact-banner-inner">
-              <div className="contact-text-block">
-                <div className="technical-label">{contact.eyebrow}</div>
-                <h2 className="contact-title">{contact.title}</h2>
-                <p className="contact-desc">{contact.description}</p>
-
-                <div className="contact-status-notice">
-                  <span className="status-dot status-dot-emerald"></span>
-                  <span>{contact.availabilityNotice}</span>
-                </div>
-              </div>
-
-              <div className="contact-actions-block">
-                <div className="contact-primary-btns">
-                  <a
-                    href={contact.primaryAction.url}
-                    className={`btn btn-${contact.primaryAction.variant || 'primary'} btn-lg`}
-                  >
-                    {contact.primaryAction.label}
-                  </a>
-                  {contact.secondaryAction && (
-                    <Link
-                      to={contact.secondaryAction.url}
-                      className={`btn btn-${contact.secondaryAction.variant || 'secondary'} btn-lg`}
-                    >
-                      {contact.secondaryAction.label}
-                    </Link>
-                  )}
-                </div>
-
-                <div className="contact-socials-row">
-                  <span className="contact-socials-label">Find Me Online:</span>
-                  <div className="contact-social-links">
-                    {contact.socialLinks.map((social, idx) => (
-                      social.isExternal ? (
-                        <a
-                          key={idx}
-                          href={social.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="tech-link social-link-item"
-                        >
-                          <span>{social.label}</span>
-                          <span className="arrow">↗</span>
-                        </a>
-                      ) : (
-                        <a
-                          key={idx}
-                          href={social.url}
-                          className="tech-link social-link-item"
-                        >
-                          <span>{social.label}</span>
-                          <span className="arrow">→</span>
-                        </a>
-                      )
-                    ))}
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* EXPERIENCE */}
+      {experiences.length > 0 && (
+        <section
+          className="section home-experience-section"
+          id="experience"
+        >
+          <div className="container">
+            <SectionHeading
+              label="Professional Journey"
+              title="Experience"
+              link="/experience"
+            />
+
+            <div className="experience-timeline">
+              {experiences.map((item, index) => (
+                <article
+                  key={item.id}
+                  className="timeline-item panel-architectural"
+                >
+                  <div className="timeline-meta-col">
+                    <span className="timeline-period">
+                      {formatDate(item.startDate)}
+                      {item.startDate && ' - '}
+                      {item.current
+                        ? 'Present'
+                        : formatDate(item.endDate)}
+                    </span>
+
+                    {item.location && (
+                      <span className="timeline-location">
+                        {item.location}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="timeline-content-col">
+                    <div className="timeline-header">
+                      <h3 className="timeline-role">
+                        {item.role}
+                      </h3>
+                      <span className="timeline-org">
+                        {item.company}
+                      </span>
+                    </div>
+
+                    {item.description && (
+                      <p className="timeline-desc">
+                        {item.description}
+                      </p>
+                    )}
+
+                    {!!item.technologies?.length && (
+                      <div className="timeline-tech-stack">
+                        {item.technologies.map((tech) => (
+                          <span key={tech} className="personal-chip">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="timeline-index" aria-hidden="true">
+                    {String(index + 1).padStart(2, '0')}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* THOUGHTS */}
+      {thoughts.length > 0 && (
+        <section
+          className="section home-thoughts-section"
+          id="thoughts"
+        >
+          <div className="container">
+            <SectionHeading
+              label="Notes & Reflections"
+              title="Recent Thoughts"
+              link="/thoughts"
+            />
+
+            <div className="featured-projects-grid">
+              {thoughts.map((thought) => (
+                <article
+                  key={thought.id}
+                  className="project-card panel-architectural"
+                >
+                  {thought.category && (
+                    <span className="tech-badge tech-badge-sage">
+                      {thought.category}
+                    </span>
+                  )}
+
+                  <h3 className="project-card-title">
+                    {thought.title}
+                  </h3>
+
+                  {(thought.excerpt || thought.content || thought.body) && (
+                    <p className="project-card-desc">
+                      {thought.excerpt || thought.content || thought.body}
+                    </p>
+                  )}
+
+                  {thought.slug && (
+                    <Link
+                      to={`/thoughts/${thought.slug}`}
+                      className="tech-link"
+                    >
+                      Read More <span className="arrow">→</span>
+                    </Link>
+                  )}
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
     </div>
   );
 }

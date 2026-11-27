@@ -1,34 +1,56 @@
 
-import ContactPage from "./pages/ContactPage";
-import ContactAdminPage from "./pages/admin/ContactAdminPage";
-import ResumePage from "./pages/ResumePage";
-import ResumeAdminPage from "./pages/admin/ResumeAdminPage";
-import MyThoughtsAdminPage from "./pages/admin/MyThoughtsAdminPage";
-import VisitorThoughtsAdminPage from "./pages/admin/VisitorThoughtsAdminPage";
-import ThoughtsPage from "./pages/ThoughtsPage";
-import ExperiencePage from "./pages/ExperiencePage";
-import ExperienceAdminPage from "./pages/admin/ExperienceAdminPage";
-import SkillsPage from "./pages/SkillsPage";
-import SkillsAdminPage from "./pages/admin/SkillsAdminPage";
-import AboutPage from './pages/AboutPage';
-import AboutAdminPage from './pages/admin/AboutAdminPage';
-import HobbiesAdminPage from './pages/admin/HobbiesAdminPage';
-import HobbiesPage from './pages/HobbiesPage';
-import HobbyDetailsPage from './pages/HobbyDetailsPage';
-import { Navigate } from 'react-router-dom';
-import ProjectsPage from './pages/ProjectsPage';
-import ProjectDetailsPage from './pages/ProjectDetailsPage';
-import AnalyticsPage from './pages/admin/AnalyticsPage';
-import { useEffect } from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
-import ProjectsAdminPage from './pages/admin/ProjectsAdminPage';
-import HomepageEditorPage from './pages/admin/HomepageEditorPage';
-import AdminLoginPage from './pages/admin/AdminLoginPage';
-import AdminDashboardPage from './pages/admin/AdminDashboardPage';
+import { lazy, Suspense, useEffect } from 'react';
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+} from 'react-router-dom';
+
 import PublicLayout from './layouts/PublicLayout';
-import HomePage from './pages/HomePage';
-import PlaceholderPage from './pages/PlaceholderPage';
 import { trackPageView, trackEvent } from './utils/analytics';
+
+// Public pages
+const HomePage = lazy(() => import('./pages/HomePage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const ResumePage = lazy(() => import('./pages/ResumePage'));
+const ThoughtsPage = lazy(() => import('./pages/ThoughtsPage'));
+const ExperiencePage = lazy(() => import('./pages/ExperiencePage'));
+const SkillsPage = lazy(() => import('./pages/SkillsPage'));
+const AboutPage = lazy(() => import('./pages/AboutPage'));
+const HobbiesPage = lazy(() => import('./pages/HobbiesPage'));
+const HobbyDetailsPage = lazy(() => import('./pages/HobbyDetailsPage'));
+const ProjectsPage = lazy(() => import('./pages/ProjectsPage'));
+const ProjectDetailsPage = lazy(() => import('./pages/ProjectDetailsPage'));
+
+// Admin pages
+const ContactAdminPage = lazy(() => import('./pages/admin/ContactAdminPage'));
+const ResumeAdminPage = lazy(() => import('./pages/admin/ResumeAdminPage'));
+const MyThoughtsAdminPage = lazy(() => import('./pages/admin/MyThoughtsAdminPage'));
+const VisitorThoughtsAdminPage = lazy(() => import('./pages/admin/VisitorThoughtsAdminPage'));
+const ExperienceAdminPage = lazy(() => import('./pages/admin/ExperienceAdminPage'));
+const SkillsAdminPage = lazy(() => import('./pages/admin/SkillsAdminPage'));
+const AboutAdminPage = lazy(() => import('./pages/admin/AboutAdminPage'));
+const HobbiesAdminPage = lazy(() => import('./pages/admin/HobbiesAdminPage'));
+const ProjectsAdminPage = lazy(() => import('./pages/admin/ProjectsAdminPage'));
+const AnalyticsPage = lazy(() => import('./pages/admin/AnalyticsPage'));
+const HomepageEditorPage = lazy(() => import('./pages/admin/HomepageEditorPage'));
+const AdminLoginPage = lazy(() => import('./pages/admin/AdminLoginPage'));
+const AdminDashboardPage = lazy(() => import('./pages/admin/AdminDashboardPage'));
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'instant',
+    });
+  }, [pathname]);
+
+  return null;
+}
 
 function NotFound() {
   return (
@@ -41,24 +63,41 @@ function NotFound() {
   );
 }
 
+function PageLoading() {
+  return (
+    <div className="section">
+      <div className="container">
+        <p>Loading page...</p>
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
   const location = useLocation();
 
+  // Track public page views
   useEffect(() => {
     if (location.pathname.startsWith('/admin')) return;
 
     trackPageView();
   }, [location.pathname]);
 
+  // Track user interactions
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
-      const element = (event.target as HTMLElement).closest(
+      const targetElement = event.target;
+
+      if (!(targetElement instanceof Element)) return;
+
+      const element = targetElement.closest(
         'a, button, [data-analytics]'
       );
 
       if (!element) return;
 
       const link = element as HTMLAnchorElement;
+
       const target =
         link.getAttribute('data-analytics') ||
         link.getAttribute('href') ||
@@ -100,59 +139,53 @@ export default function App() {
     };
   }, []);
 
-
   return (
-    <Routes>
-      
-      <Route
-  path="/admin/contact"
-  element={<ContactAdminPage />}
-/>
-      <Route path="/admin/resume" element={<ResumeAdminPage />} />
-      <Route
-  path="/admin/my-thoughts"
-  element={<MyThoughtsAdminPage />}
-/>
-      <Route
-  path="/admin/visitor-thoughts"
-  element={<VisitorThoughtsAdminPage />}
-/>
-      {/* Admin */}
-      <Route
-  path="/admin/experience"
-  element={<ExperienceAdminPage />}
-/>
-      <Route path="/admin/skills" element={<SkillsAdminPage />} />
-      <Route path="/admin/about" element={<AboutAdminPage />} />
-      <Route path="/admin/projects" element={<ProjectsAdminPage />} />
-      <Route path="/admin/hobbies" element={<HobbiesAdminPage />} />
-      <Route path="/admin/analytics" element={<AnalyticsPage />} />
-      <Route path="/admin" element={<AdminDashboardPage />} />
-      <Route path="/admin/login" element={<AdminLoginPage />} />
-      <Route path="/admin/homepage" element={<HomepageEditorPage />} />
+    <>
+      <ScrollToTop />
 
-      {/* Public Website */}
-      {/* Public Website */}
-<Route element={<PublicLayout />}>
-  <Route path="/resume" element={<ResumePage />} />
-  <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/skills" element={<SkillsPage />} />
-        <Route path="/experience" element={<ExperiencePage />} />
+      <Suspense fallback={<PageLoading />}>
+        <Routes>
+          {/* Admin routes */}
+          <Route path="/admin/contact" element={<ContactAdminPage />} />
+          <Route path="/admin/resume" element={<ResumeAdminPage />} />
+          <Route path="/admin/my-thoughts" element={<MyThoughtsAdminPage />} />
+          <Route path="/admin/visitor-thoughts" element={<VisitorThoughtsAdminPage />} />
+          <Route path="/admin/experience" element={<ExperienceAdminPage />} />
+          <Route path="/admin/skills" element={<SkillsAdminPage />} />
+          <Route path="/admin/about" element={<AboutAdminPage />} />
+          <Route path="/admin/projects" element={<ProjectsAdminPage />} />
+          <Route path="/admin/hobbies" element={<HobbiesAdminPage />} />
+          <Route path="/admin/analytics" element={<AnalyticsPage />} />
+          <Route path="/admin/homepage" element={<HomepageEditorPage />} />
+          <Route path="/admin/login" element={<AdminLoginPage />} />
+          <Route path="/admin" element={<AdminDashboardPage />} />
 
-        <Route path="/projects" element={<ProjectsPage />} />
-        <Route path="/projects/:slug" element={<ProjectDetailsPage />} />
+          {/* Public website routes */}
+          <Route element={<PublicLayout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/resume" element={<ResumePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/skills" element={<SkillsPage />} />
+            <Route path="/experience" element={<ExperiencePage />} />
 
-        <Route path="/hobbies" element={<HobbiesPage />} />
-        <Route path="/hobbies/:slug" element={<HobbyDetailsPage />} />
+            <Route path="/projects" element={<ProjectsPage />} />
+            <Route path="/projects/:slug" element={<ProjectDetailsPage />} />
 
-        {/* Redirect old Blog URL */}
-        <Route path="/blog" element={<Navigate to="/hobbies" replace />} />
+            <Route path="/hobbies" element={<HobbiesPage />} />
+            <Route path="/hobbies/:slug" element={<HobbyDetailsPage />} />
 
-        <Route path="/thoughts" element={<ThoughtsPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="*" element={<NotFound />} />
-      </Route>
-    </Routes>
+            <Route
+              path="/blog"
+              element={<Navigate to="/hobbies" replace />}
+            />
+
+            <Route path="/thoughts" element={<ThoughtsPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
+      </Suspense>
+    </>
   );
 }

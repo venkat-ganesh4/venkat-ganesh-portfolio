@@ -48,16 +48,18 @@ export default function AdminDashboardPage() {
       <section>
         <h2>Content Management</h2>
         <div>
-          <a href="/admin/contact">Contact Management</a>
-          <p><Link to="/admin/my-thoughts">Manage My Thoughts</Link></p>
+          <p><Link to="/admin/resume">View Resume</Link></p>
           <p><Link to="/admin/homepage">Edit Homepage</Link></p>
-          <p><Link to="/admin/projects">Manage Projects</Link></p>
-          <p><Link to="/admin/hobbies">Manage Hobbies</Link></p>
-          <p><Link to="/admin/skills">Manage Skills</Link></p>
           <p><Link to="/admin/about">Manage About Page</Link></p>
-          <p><Link to="/admin/experience">Manage Experience</Link></p>
-          <p><Link to="/admin/visitor-thoughts">Manage Visitor Thoughts</Link></p>
+           <p><Link to="/admin/skills">Manage Skills</Link></p>
+           <p><Link to="/admin/experience">Manage Experience</Link></p>
+           <p><Link to="/admin/projects">Manage Projects</Link></p>
+           <p><Link to="/admin/hobbies">Manage Hobbies</Link></p>
+           <p><Link to="/admin/my-thoughts">Manage My Thoughts</Link></p>
+           <p><Link to="/admin/visitor-thoughts">Manage Visitor Thoughts</Link></p>
+          <a href="/admin/contact">Contact Management</a>
           <p><Link to="/admin/analytics">View Analytics</Link></p>
+          
         </div>
       </section>
 

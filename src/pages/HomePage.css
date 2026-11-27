@@ -1,0 +1,765 @@
+
+/* =========================================================
+   HOMEPAGE ONLY
+   Keeps the shared header, footer and other pages untouched.
+   ========================================================= */
+
+.home-page {
+  color: var(--text-primary);
+  overflow: hidden;
+}
+
+.home-page .section {
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+}
+
+.home-page .container {
+  width: min(1120px, calc(100% - 3rem));
+}
+
+/* Remove global decorative clutter from homepage panels */
+.home-page .panel-architectural::before,
+.home-page .panel-architectural::after {
+  display: none;
+  content: none;
+}
+
+.home-page .panel-architectural {
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+/* -------------------------
+   HERO
+   ------------------------- */
+
+.home-page .hero-section {
+  padding-block: clamp(4rem, 9vw, 7.5rem);
+}
+
+.home-page .hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+  align-items: center;
+  gap: clamp(2.5rem, 7vw, 6rem);
+}
+
+.home-page .hero-text-col {
+  max-width: 650px;
+}
+
+.home-page .hero-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.home-page .personal-status-pill,
+.home-page .tech-badge {
+  border-radius: 3px;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+}
+
+.home-page .hero-greeting {
+  margin: 0 0 0.4rem;
+  color: var(--text-secondary);
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+}
+
+.home-page .hero-name {
+  margin: 0;
+  max-width: 700px;
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 7vw, 5.8rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.065em;
+  overflow-wrap: anywhere;
+}
+
+.home-page .hero-dot {
+  color: var(--accent-gold-text);
+}
+
+.home-page .hero-identity-tag {
+  margin-top: 1.3rem;
+  color: var(--accent-gold-text);
+  font-family: var(--font-heading);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 600;
+}
+
+.home-page .hero-lead {
+  max-width: 570px;
+  margin: 1.4rem 0 0;
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  line-height: 1.85;
+}
+
+.home-page .hero-cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 2rem;
+}
+
+.home-page .hero-focus-block {
+  margin-top: 2.3rem;
+}
+
+.home-page .hero-focus-label {
+  display: block;
+  margin-bottom: 0.8rem;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.home-page .hero-focus-tags,
+.home-page .project-tech-stack,
+.home-page .timeline-tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.home-page .personal-chip {
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+}
+
+/* Portrait */
+.home-page .hero-visual-col {
+  display: flex;
+  justify-content: center;
+}
+
+.home-page .portrait-composition {
+  position: relative;
+  width: min(100%, 390px);
+}
+
+.home-page .portrait-frame {
+  position: relative;
+  z-index: 1;
+  padding: 0.7rem;
+  border: 1px solid var(--border-gold);
+  background: var(--bg-surface);
+}
+
+.home-page .portrait-inner {
+  overflow: hidden;
+}
+
+.home-page .portrait-media-slot {
+  min-height: 320px;
+  overflow: hidden;
+  background: var(--bg-canvas);
+}
+
+.home-page .portrait-media-slot img {
+  display: block;
+  width: 100%;
+  height: 390px;
+  object-fit: cover;
+}
+
+.home-page .portrait-caption {
+  padding: 1rem 0.35rem 0.3rem;
+}
+
+.home-page .portrait-caption-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.home-page .portrait-caption-name {
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+
+.home-page .portrait-caption-tagline {
+  margin: 0.35rem 0 0;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.home-page .portrait-backing-layer {
+  position: absolute;
+  inset: 1rem -1rem -1rem 1rem;
+  border: 1px solid var(--border-gold);
+  opacity: 0.45;
+}
+
+/* -------------------------
+   SHARED SECTION HEADERS
+   ------------------------- */
+
+.home-page .section-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.home-page .technical-label {
+  margin-bottom: 0.8rem;
+  color: var(--accent-gold-text);
+}
+
+.home-page .section-title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+}
+
+.home-page .section-description {
+  max-width: 600px;
+  margin: 0.8rem 0 0;
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+
+.home-page .section-header-action {
+  flex-shrink: 0;
+}
+
+/* -------------------------
+   PROJECTS
+   ------------------------- */
+
+.home-page .featured-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2rem;
+}
+
+.home-page .project-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 1.6rem;
+  border: 1px solid var(--border-gold);
+  background: var(--bg-surface);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.home-page .project-card:hover,
+.home-page .skill-cat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 26px rgba(16, 46, 41, 0.08);
+}
+
+.home-page .project-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.home-page .project-year {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.home-page .project-card-title,
+.home-page .skill-cat-title {
+  margin: 1.2rem 0 0.6rem;
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+}
+
+.home-page .project-card-desc,
+.home-page .skill-cat-desc {
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+
+.home-page .project-tech-stack {
+  margin-top: 1rem;
+}
+
+.home-page .project-card-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 1.5rem;
+}
+
+/* -------------------------
+   ABOUT
+   ------------------------- */
+
+.home-page .about-preview-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+  align-items: start;
+  gap: clamp(2rem, 6vw, 5rem);
+}
+
+.home-page .about-preview-lead {
+  margin: 1.2rem 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 2.5vw, 1.65rem);
+  line-height: 1.55;
+}
+
+.home-page .about-bio-p {
+  color: var(--text-secondary);
+  line-height: 1.85;
+}
+
+.home-page .about-actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.home-page .principles-card {
+  padding: 1.5rem;
+  border: 1px solid var(--border-gold);
+  background: var(--bg-surface);
+}
+
+.home-page .panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.home-page .principle-item {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 1rem;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.home-page .principle-item:last-child {
+  border-bottom: 0;
+}
+
+.home-page .principle-number {
+  color: var(--accent-gold-text);
+  font-family: var(--font-heading);
+}
+
+.home-page .principle-title {
+  margin: 0;
+  font-family: var(--font-heading);
+}
+
+.home-page .principle-desc {
+  margin: 0.4rem 0 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+/* -------------------------
+   SKILLS
+   ------------------------- */
+
+.home-page .skills-categories-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2rem;
+}
+
+.home-page .skill-cat-card {
+  padding: 1.5rem;
+  border: 1px solid var(--border-gold);
+  background: var(--bg-surface);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.home-page .skill-cat-header {
+  margin-bottom: 0.8rem;
+}
+
+.home-page .skill-tags-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 1.2rem;
+}
+
+.home-page .skill-item-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  background: var(--bg-canvas);
+  font-size: 0.82rem;
+}
+
+.home-page .skill-item-level {
+  color: var(--text-secondary);
+  font-size: 0.7rem;
+}
+
+/* -------------------------
+   EXPERIENCE
+   ------------------------- */
+
+.home-page .experience-timeline {
+  display: grid;
+  gap: 1rem;
+}
+
+.home-page .timeline-item {
+  display: grid;
+  grid-template-columns: minmax(140px, 0.3fr) minmax(0, 1fr) auto;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid var(--border-gold);
+  background: var(--bg-surface);
+}
+
+.home-page .timeline-meta-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+
+.home-page .timeline-period,
+.home-page .timeline-location {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.home-page .timeline-role {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+}
+
+.home-page .timeline-org {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--accent-gold-text);
+}
+
+.home-page .timeline-desc {
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+
+.home-page .timeline-index {
+  color: var(--accent-gold-text);
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+}
+
+/* -------------------------
+   CONTACT
+   ------------------------- */
+
+.home-page .contact-banner {
+  padding: clamp(1.5rem, 5vw, 3.5rem);
+  border: 1px solid var(--border-gold);
+  background: var(--bg-surface);
+}
+
+.home-page .contact-banner-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 2rem;
+}
+
+.home-page .contact-title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.15;
+}
+
+.home-page .contact-desc {
+  max-width: 580px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.home-page .contact-status-notice {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.2rem;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.home-page .contact-primary-btns,
+.home-page .contact-social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.home-page .contact-socials-row {
+  margin-top: 1.5rem;
+}
+
+.home-page .contact-socials-label {
+  display: block;
+  margin-bottom: 0.7rem;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+/* -------------------------
+   RESPONSIVE
+   ------------------------- */
+
+@media (max-width: 850px) {
+  .home-page .hero-layout,
+  .home-page .about-preview-grid,
+  .home-page .contact-banner-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .home-page .hero-visual-col {
+    justify-content: flex-start;
+  }
+
+  .home-page .portrait-composition {
+    width: min(100%, 340px);
+  }
+
+  .home-page .timeline-item {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .home-page .timeline-index {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .home-page .container {
+    width: min(100% - 2rem, 1120px);
+  }
+
+  .home-page .section-header-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .home-page .featured-projects-grid,
+  .home-page .skills-categories-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-page .hero-name {
+    font-size: clamp(2.8rem, 13vw, 4rem);
+  }
+
+  .home-page .portrait-media-slot img {
+    height: 320px;
+  }
+
+  .home-page .project-card,
+  .home-page .skill-cat-card,
+  .home-page .principles-card {
+    padding: 1.2rem;
+  }
+
+  .home-page .hero-cta-group .btn,
+  .home-page .contact-primary-btns .btn {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-page *,
+  .home-page *::before,
+  .home-page *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+
+/* =========================================================
+   HOMEPAGE REFINEMENT
+   ========================================================= */
+
+/* Bring the hero closer to the navigation */
+.home-page .hero-section {
+  padding-top: clamp(2rem, 4vw, 3.5rem);
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+.home-page .hero-layout {
+  gap: clamp(2rem, 5vw, 4.5rem);
+}
+
+.home-page .hero-badge-row {
+  margin-bottom: 1.4rem;
+}
+
+.home-page .hero-focus-block {
+  margin-top: 1.8rem;
+}
+
+/* Give the portrait a little more presence */
+.home-page .portrait-composition {
+  width: min(100%, 430px);
+}
+
+.home-page .portrait-media-slot {
+  min-height: 360px;
+}
+
+.home-page .portrait-media-slot img,
+.home-page .portrait-media-slot .profile-image-container,
+.home-page .portrait-media-slot .profile-img {
+  width: 100%;
+  height: 430px;
+  object-fit: cover;
+}
+
+/* Balanced About layout */
+.home-page .about-preview-grid {
+  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+  align-items: stretch;
+  gap: clamp(2rem, 5vw, 4rem);
+}
+
+.home-page .about-preview-text {
+  min-width: 0;
+}
+
+.home-page .about-preview-side {
+  display: flex;
+  align-items: stretch;
+}
+
+.home-page .about-side-card {
+  width: 100%;
+  padding: clamp(1.4rem, 3vw, 2rem);
+  border: 1px solid var(--border-gold);
+  background:
+    linear-gradient(
+      145deg,
+      var(--bg-surface),
+      var(--bg-canvas)
+    );
+}
+
+.home-page .about-side-item {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1.35rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.home-page .about-side-item:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.home-page .about-side-number {
+  color: var(--accent-gold-text);
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+}
+
+.home-page .about-side-item h3 {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+}
+
+.home-page .about-side-item p {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  font-size: 0.92rem;
+}
+
+/* More visual interest in project cards */
+.home-page .project-card {
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.home-page .project-card-image {
+  display: block;
+  width: calc(100% + 3.2rem);
+  max-width: none;
+  height: 230px;
+  margin: -1.6rem -1.6rem 1.5rem;
+  object-fit: cover;
+  background: var(--bg-canvas);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.home-page .project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* More consistent section rhythm */
+.home-page .home-projects-section,
+.home-page .home-skills-section,
+.home-page .home-thoughts-section {
+  background: var(--bg-canvas);
+}
+
+.home-page .home-about-section,
+.home-page .home-experience-section {
+  background: var(--bg-surface);
+}
+
+@media (max-width: 850px) {
+  .home-page .about-preview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-page .about-preview-side {
+    width: 100%;
+  }
+
+  .home-page .hero-section {
+    padding-top: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .home-page .portrait-media-slot img,
+  .home-page .portrait-media-slot .profile-image-container,
+  .home-page .portrait-media-slot .profile-img {
+    height: 340px;
+  }
+
+  .home-page .project-card-image {
+    width: calc(100% + 2.4rem);
+    height: 190px;
+    margin: -1.2rem -1.2rem 1.2rem;
+  }
+}
